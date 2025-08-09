@@ -25,7 +25,7 @@ const Installations = () => {
 
   const handleSub = (service) => {
     addBooking({ ...service, category: "Installations" });
-    navigate("/myactivity");
+    navigate("/userdashboard");
   };
 
   return (

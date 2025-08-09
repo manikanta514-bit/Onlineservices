@@ -1,46 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../firebase";
-import { onAuthStateChanged } from "firebase/auth";
 import "../App.css";
 
 const Services = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        setUser(currentUser);
-      } else {
-        setUser(null);
-        navigate("/signup", { replace: true }); // redirect if no account
-      }
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, [navigate]);
-
-  if (loading) {
-    return (
-      <div className="loader-container">
-        <div className="spinner"></div>
-        <h2>Checking authentication...</h2>
-      </div>
-    );
-  }
 
   return (
     <div className="page-content">
       <h1 className="text-center">Our Services</h1>
-
-      {user && (
-        <p className="text-center" style={{ marginTop: "10px", fontWeight: "bold" }}>
-          Welcome, {user.displayName || user.email}!
-        </p>
-      )}
 
       <div className="mani-intro">
         <p>
@@ -49,14 +16,14 @@ const Services = () => {
         </p>
         <p>
           Whether you need a sparkling clean home, quick and efficient repairs,
-          or expert installations, we've got you covered.
+          expert installations, professional painting services, or trusted packers and movers, we've got you covered.
         </p>
         <p>
           Join thousands of satisfied customers who trust us. Book a service today!
         </p>
         <div className="mani-cta">
           <h2>Click the service you want to choose</h2>
-          <p>Select Cleaning, Repair, or Installation services easily.</p>
+          <p>Select Cleaning, Repair, Installation, Painting, or Packers and Movers services easily.</p>
         </div>
       </div>
 
@@ -77,6 +44,19 @@ const Services = () => {
           <i className="fas fa-hammer fa-3x text-orange-600"></i>
           <h3>Installations</h3>
           <p>Furniture, electronics, and appliances set up perfectly.</p>
+        </div>
+
+        <div className="mani-box" onClick={() => navigate("/painting")}>
+          <i className="fas fa-paint-roller fa-3x text-orange-600"></i>
+          <h3>Painting</h3>
+          <p>Professional interior and exterior painting for homes and offices.</p>
+        </div>
+
+        {/* New Packers and Movers service box */}
+        <div className="mani-box" onClick={() => navigate("/packersmovers")}>
+          <i className="fas fa-truck-moving fa-3x text-orange-600"></i>
+          <h3>Packers and Movers</h3>
+          <p>Trusted packing, moving, and relocation services for homes, offices, and vehicles.</p>
         </div>
       </div>
 

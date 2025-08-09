@@ -24,7 +24,7 @@ const Repairs = () => {
 
   const handleRep = (service) => {
     addBooking({ ...service, category: "Repairs" });
-    navigate("/myactivity");
+    navigate("/userdashboard");
   };
 
   return (

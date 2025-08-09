@@ -15,9 +15,11 @@ import About from './components/About';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Settings from './components/Settings';
-import Workers from './components/Workers';
-import MyActivity from './components/MyActivity'; 
+import Contractors from './components/Contractors';
+import Painting from './components/Painting';
+import PackersMovers from './components/PackersMovers';
 import { BookingProvider } from './context/BookingContext';
+import UserDashboard from './components/UserDashboard';
 
 // ------------------- Header -------------------
 const Header = () => {
@@ -42,8 +44,8 @@ const Header = () => {
           <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link><hr />
           <Link to="/help" onClick={() => setMenuOpen(false)}>Help</Link><hr />
           <Link to="/settings" onClick={() => setMenuOpen(false)}>Settings</Link><hr />
-          <Link to="/workers" onClick={() => setMenuOpen(false)}>Workers</Link><hr />
-          <Link to="/myactivity" onClick={() => setMenuOpen(false)}>My Activity</Link><hr />
+          <Link to="/contractors" onClick={() => setMenuOpen(false)}>Contractors</Link><hr />
+          <Link to="/userdashboard" onClick={() => setMenuOpen(false)}>UserDashboard</Link><hr />
         </div>
       )}
     </header>
@@ -177,12 +179,14 @@ const App = () => {
         <Route path="/cleaning" element={<Cleaning />} />
         <Route path="/repairs" element={<Repairs />} />
         <Route path="/installations" element={<Installations />} />
+        <Route path="/painting" element={<Painting />} />
+        <Route path="/packersmovers" element={<PackersMovers />} />
         <Route path="/services" element={<ProtectedRoute><Services /></ProtectedRoute>} />
         <Route path="/help" element={<Help />} />
         <Route path="/about" element={<About />} />
         <Route path="/settings" element={<Settings />} />
-        <Route path="/workers" element={<Workers />} />       
-        <Route path="/myactivity" element={<MyActivity />} /> 
+        <Route path="/contractors" element={<Contractors />} />       
+        <Route path="/userdashboard" element={<UserDashboard />} /> 
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
       </Routes>
