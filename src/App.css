@@ -170,7 +170,7 @@ body {
 }
 .service-card p {
   font-size: 16px;
-  color: #f1f1f1;
+  color: rgb(15, 15, 15);
 }
 .service-list {
   padding-left: 20px;
@@ -178,7 +178,7 @@ body {
 }
 .service-list li {
   margin: 15px 0;
-  color: #fffbea;
+  color: black;
   font-size: 16px;
 }
 /* ===== Testimonials Section ===== */
@@ -194,7 +194,7 @@ body {
   margin-top: 30px;
 }
 .testimonial-card {
-  background: rgba(255, 255, 255, 0.15);
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   border-radius: 12px;
   padding: 40px;
   width: 500px;
@@ -203,6 +203,7 @@ body {
   backdrop-filter: blur(6px);
 }
 .testimonial-card:hover {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   transform: translateY(-8px);
   box-shadow: 0 6px 18px rgba(255, 255, 255, 0.5);
 }
@@ -341,7 +342,6 @@ body {
   text-decoration: underline;
 }
 
-/* 📱 Mobile adjustments */
 @media (max-width: 480px) {
   .auth-card {
     padding: 25px 20px; /* Smaller padding for mobile */
@@ -380,7 +380,7 @@ body {
   padding: 0 2rem;
 }
 .mani-box {
-  background: rgba(255, 255, 255, 0.15);
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   border-radius: 20px;
   padding: 3rem 2rem;
   text-align: center;
@@ -430,7 +430,7 @@ body {
   justify-items: center;
 }
 .guys-card {
-  background: rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   border-radius: 18px;
   overflow: hidden;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
@@ -452,7 +452,7 @@ body {
 }
 
 .back-btn {
-background: rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   border: none;
   color: white;
   font-size: 16px;
@@ -476,7 +476,7 @@ background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 .back-home-btn {
-background: rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   border: none;
   color: white;
   font-size: 16px;
@@ -530,7 +530,7 @@ background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   margin: 8px 0 12px;
 }
 .guys-btn {
- background: rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   border: none;
   color: white;
   padding: 12px 20px;
@@ -752,7 +752,7 @@ background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
 
 /* Booking Cards */
 .activity-card {
-  background: rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   backdrop-filter: blur(12px);
   border-radius: 16px;
   padding: 25px;
@@ -786,15 +786,15 @@ background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
 }
 
 .activity-card p b {
-  color: #ffe066;
+  color: gold;
 }
 
 /* Clear Button */
 .clear-btn {
   margin-top: 25px;
-  background: rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   border: none;
-  color: rgb(246, 244, 244);
+  color: gold;
   padding: 14px 26px;
   border-radius: 10px;
   font-size: 1.1rem;

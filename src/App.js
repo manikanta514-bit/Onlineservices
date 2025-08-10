@@ -57,7 +57,8 @@ const Home = () => {
   const cardStyleCleaning = { backgroundImage: 'url("/images/Cleaning.png")', backgroundSize: 'cover', backgroundPosition: 'center' };
   const cardStyleRepairs = { backgroundImage: 'url("/images/Repairs.png")', backgroundSize: 'cover', backgroundPosition: 'center' };
   const cardStyleInstallations = { backgroundImage: 'url("/images/Installations2.png")', backgroundSize: 'cover', backgroundPosition: 'center' };
-
+  const cardStylePainting = { backgroundImage: 'url("/images/paintings/Texture paint specialized paint.png")', backgroundSize: 'cover', backgroundPosition: 'center' };
+  const cardStylePackersMovers = { backgroundImage: 'url("/images/packersmovers/fragile tems.png")', backgroundSize: 'cover', backgroundPosition: 'center' };
   return (
     <main className="main-content">
       {/* Hero Section */}
@@ -121,6 +122,28 @@ const Home = () => {
             <li>Light Fixture & Fan Installation</li>
           </ul>
         </div>
+         <div className="service-card" style={cardStylePainting}>
+           <i className="fas fa-paint-roller fa-3x card-icon" style={{ color: "gold" }}></i>
+           <h2>Custom Painting</h2>
+           <p>Bring your walls to life with vibrant colors and premium finishes.</p>
+           <ul className="service-list">
+           <li>Interior & Exterior Painting</li>
+           <li>Custom Wall Murals</li>
+           <li>Waterproof Coatings</li>
+           <li>Wood & Metal Painting</li>
+           </ul>
+         </div>
+         <div className="service-card" style={cardStylePackersMovers}>
+          <i className="fas fa-truck-moving fa-3x card-icon" style={{ color: "gold" }}></i>
+          <h2>Packers & Movers</h2>
+           <p>Safe and reliable relocation services for your home or office.</p>
+            <ul className="service-list">
+           <li>Household Shifting</li>
+           <li>Office Relocation</li>
+          <li>Local & Long Distance Moves</li>
+          <li>Packing, Loading & Unloading</li>
+          </ul>
+           </div>
       </div>
 
       {/* Testimonials Section */}
@@ -169,7 +192,7 @@ const Home = () => {
   );
 };
 
-// ------------------- App -------------------
+
 const App = () => {
   return (
     <div className="App-css">
