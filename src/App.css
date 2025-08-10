@@ -234,25 +234,30 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-   /*background: linear-gradient(135deg, #00c6ff, #0072ff, #ff61d2);*/
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 10px; /* Prevent card touching edges on mobile */
+  box-sizing: border-box;
 }
+
 .auth-card {
   background: rgba(255, 255, 255, 0.95);
   padding: 40px 30px;
   border-radius: 15px;
   box-shadow: 0 6px 18px rgba(255, 255, 255, 0.5);
-  width: 400px;
+  width: 100%;            /* Fill available space */
+  max-width: 400px;       /* Prevent card from getting too wide */
   animation: fadeIn 0.8s ease-in-out;
+  box-sizing: border-box; /* Include padding in total width */
 }
+
 .auth-card h2 {
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
   color: #2c5364;
 }
+
 .auth-input {
   width: 100%;
   padding: 12px;
@@ -260,41 +265,44 @@ body {
   border: 1px solid #ddd;
   border-radius: 8px;
   transition: all 0.3s ease;
+  box-sizing: border-box;
 }
+
 .auth-input:focus {
   border-color: #0072ff;
   box-shadow: 0 0 5px rgba(0, 114, 255, 0.5);
   outline: none;
 }
+
 .auth-btn {
   width: 100%;
   padding: 12px;
-   /*background: linear-gradient(135deg, #00c6ff, #0072ff, #ff61d2);*/
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-
   border: none;
   color: #fff;
   font-size: 16px;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
+
 .auth-btn:hover {
-   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(255, 255, 255, 0.5);
 }
-.auth-btn-secondary {
-    /*background: linear-gradient(135deg, #00c6ff, #0072ff, #ff61d2);*/
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
 
+.auth-btn-secondary {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   color: rgb(247, 245, 245);
 }
+
 .auth-btn-secondary:hover {
- background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(255, 255, 255, 0.5);
 }
+
 .auth-error {
   background: #f8d7da;
   color: #842029;
@@ -303,14 +311,17 @@ body {
   margin-bottom: 15px;
   text-align: center;
 }
+
 .auth-card p a {
   color: #2c5364;
   font-weight: bold;
   text-decoration: none;
 }
+
 .auth-card p a:hover {
   text-decoration: underline;
 }
+
 .auth-card p {
   margin-top: 15px;
   text-align: center;
@@ -326,9 +337,27 @@ body {
 }
 
 .auth-link:hover {
-  color:#2c5364;
+  color: #2c5364;
   text-decoration: underline;
 }
+
+/* 📱 Mobile adjustments */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 25px 20px; /* Smaller padding for mobile */
+  }
+  .auth-card h2 {
+    font-size: 18px;
+  }
+  .auth-input {
+    padding: 10px;
+  }
+  .auth-btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
 
 
 /* ===== Mani Section ===== */
