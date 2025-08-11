@@ -1,11 +1,12 @@
+// Installations.js
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { GiDrill } from "react-icons/gi";
-import { useContext } from "react";
 import { BookingContext } from "../context/BookingContext";
 
 const Installations = () => {
   const navigate = useNavigate();
-  const { addBooking } = useContext(BookingContext);
+  const { addBooking, user } = useContext(BookingContext);
 
   const installServices = [
     { name: "Ceiling Fan Installation", charges: "₹299-₹499", desc: "Professional mount and wiring for ceiling fans.", img: "/images/install/fan installation.png" },
@@ -23,8 +24,12 @@ const Installations = () => {
     { name: "Water Dispenser Installation", charges: "₹249-₹499", desc: "Cold/hot water dispenser plumbing & electrical setup.", img: "/images/install/waterdispenserinstall.png" }
   ];
 
-  const handleSub = (service) => {
-    addBooking({ ...service, category: "Installations" });
+  const handleBooking = (service) => {
+    if (!user) {
+      navigate("/signup");
+      return;
+    }
+    addBooking({ ...service, category: "Installations", userId: user.uid, userEmail: user.email });
     navigate("/userdashboard");
   };
 
@@ -48,7 +53,7 @@ const Installations = () => {
             <h3>{service.name}</h3>
             <p>{service.desc}</p>
             <h4 className="guys-price">{service.charges}</h4>
-            <button className="guys-btn" onClick={() => handleSub(service)}>
+            <button className="guys-btn" onClick={() => handleBooking(service)}>
               Book Service
             </button>
           </div>

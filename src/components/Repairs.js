@@ -1,11 +1,12 @@
+// Repairs.js
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaWrench } from "react-icons/fa";
-import { useContext } from "react";
 import { BookingContext } from "../context/BookingContext";
 
 const Repairs = () => {
   const navigate = useNavigate();
-  const { addBooking } = useContext(BookingContext);
+  const { addBooking, user } = useContext(BookingContext);
 
   const repairServices = [
     { name: "Mixer/Grinder Repair", charges: "₹249-₹399", desc: "Fix motor, blades, wiring issues, and maintenance.", img: "/images/repairs/mixergrinder repair.png" },
@@ -22,20 +23,22 @@ const Repairs = () => {
     { name: "Water Dispenser Repair", charges: "₹249-₹699", desc: "Hot/cold water mechanisms, dispenser panel & cooling.", img: "/images/repairs/waterdispenserrepair.png" }
   ];
 
-  const handleRep = (service) => {
-    addBooking({ ...service, category: "Repairs" });
+  const handleBooking = (service) => {
+    if (!user) {
+      navigate("/signup");
+      return;
+    }
+    addBooking({ ...service, category: "Repairs", userId: user.uid, userEmail: user.email });
     navigate("/userdashboard");
   };
 
   return (
     <div className="guys-detail">
       <h1>
-        Appliance & Repair Services  
-        <FaWrench style={{ color: "gold", marginLeft: "8px" }} />
+        Appliance & Repair Services <FaWrench style={{ color: "gold", marginLeft: "8px" }} />
       </h1>
       <p>
-        Get certified technicians for appliance repair at your doorstep—
-        fast, reliable, and affordable.
+        Get certified technicians for appliance repair at your doorstep—fast, reliable, and affordable.
       </p>
       <div className="guys-grid">
         {repairServices.map((service, index) => (
@@ -48,10 +51,7 @@ const Repairs = () => {
             <h3>{service.name}</h3>
             <p>{service.desc}</p>
             <h4 className="guys-price">{service.charges}</h4>
-            <button
-              className="guys-btn"
-              onClick={() => handleRep(service)}
-            >
+            <button className="guys-btn" onClick={() => handleBooking(service)}>
               Book Service
             </button>
           </div>

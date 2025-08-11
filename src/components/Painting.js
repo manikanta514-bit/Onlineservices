@@ -1,3 +1,4 @@
+// Painting.js
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaPaintRoller } from "react-icons/fa";
@@ -6,16 +7,47 @@ import "../App.css";
 
 const Painting = () => {
   const navigate = useNavigate();
-  const { addBooking } = useContext(BookingContext);
-
+  const { addBooking, user } = useContext(BookingContext);
+  
   const paintingServices = [
-    { category: "Interior Painting", services: [ { name: "Living Room Painting", charges: "₹7,999", desc: "High-quality paint with smooth finish for your living room walls.", img: "/images/paintings/living room painting.png" }, { name: "Bedroom Painting", charges: "₹5,999", desc: "Fresh and durable paint to revitalize your bedrooms.", img: "/images/paintings/bedroom painting.png" }, { name: "Kitchen Painting", charges: "₹6,499", desc: "Moisture-resistant paint designed for kitchen walls.", img: "/images/paintings/kitchen painting.png" }, { name: "Bathroom Painting", charges: "₹4,999", desc: "Waterproof and mold-resistant paint for bathrooms.", img: "/images/paintings/bathroom painting.png" } ] },
-    { category: "Exterior Painting", services: [ { name: "Wall Painting", charges: "₹12,999", desc: "Durable exterior paint for your home’s walls to withstand weather.", img: "/images/paintings/ext wall painting.png" }, { name: "Fence Painting", charges: "₹3,999", desc: "Protective paint for fences with a beautiful finish.", img: "/images/paintings/fencepainting.png" }, { name: "Gate Painting", charges: "₹4,499", desc: "Rust-resistant paint for metal and wooden gates.", img: "/images/paintings/gate painting.png" } ] },
-    { category: "Specialized Painting", services: [ { name: "Texture Painting", charges: "₹9,999", desc: "Add texture effects for a stylish wall design.", img: "/images/paintings/Texture paint specialized paint.png" }, { name: "Wallpaper Installation", charges: "₹6,999", desc: "Professional wallpaper installation for unique interiors.", img: "/images/paintings/wallpaper install specialized painting.png" }, { name: "Decorative Painting", charges: "₹8,999", desc: "Artistic painting to enhance your space’s character.", img: "/images/paintings/decorative paint specilaized paint.png" } ] }
-  ];
+  {
+    category: "Interior Painting",
+    services: [
+      { name: "Living Room Painting", charges: "₹7,999", desc: "High-quality paint with smooth finish for your living room walls.", img: "/images/paintings/living room painting.png" },
+      { name: "Bedroom Painting", charges: "₹5,999", desc: "Fresh and durable paint to revitalize your bedrooms.", img: "/images/paintings/bedroom painting.png" },
+      { name: "Kitchen Painting", charges: "₹6,499", desc: "Moisture-resistant paint designed for kitchen walls.", img: "/images/paintings/kitchen painting.png" },
+      { name: "Bathroom Painting", charges: "₹4,999", desc: "Waterproof and mold-resistant paint for bathrooms.", img: "/images/paintings/bathroom painting.png" }
+    ]
+  },
+  {
+    category: "Exterior Painting",
+    services: [
+      { name: "Wall Painting", charges: "₹12,999", desc: "Durable exterior paint for your home’s walls to withstand weather.", img: "/images/paintings/ext wall painting.png" },
+      { name: "Fence Painting", charges: "₹3,999", desc: "Protective paint for fences with a beautiful finish.", img: "/images/paintings/fencepainting.png" },
+      { name: "Gate Painting", charges: "₹4,499", desc: "Rust-resistant paint for metal and wooden gates.", img: "/images/paintings/gate painting.png" }
+    ]
+  },
+  {
+    category: "Specialized Painting",
+    services: [
+      { name: "Texture Painting", charges: "₹9,999", desc: "Add texture effects for a stylish wall design.", img: "/images/paintings/Texture paint specialized paint.png" },
+      { name: "Wallpaper Installation", charges: "₹6,999", desc: "Professional wallpaper installation for unique interiors.", img: "/images/paintings/wallpaper install specialized painting.png" },
+      { name: "Decorative Painting", charges: "₹8,999", desc: "Artistic painting to enhance your space’s character.", img: "/images/paintings/decorative paint specilaized paint.png" }
+    ]
+  }
+];
 
   const handleBooking = (service, category) => {
-    addBooking({ ...service, category: `Painting - ${category}` });
+    if (!user) {
+      navigate("/signup");
+      return;
+    }
+    addBooking({
+      ...service,
+      category: `Painting - ${category}`,
+      userId: user.uid,
+      userEmail: user.email,
+    });
     navigate("/userdashboard");
   };
 
@@ -26,9 +58,7 @@ const Painting = () => {
         <FaPaintRoller style={{ color: "gold", marginLeft: "8px" }} />
       </h1>
       <p className="intro-text">
-        Choose from a variety of painting services for interior, exterior, and
-        specialized needs. We use premium paints and skilled professionals to
-        ensure a flawless finish.
+        Choose from a variety of painting services...
       </p>
 
       {paintingServices.map((cat, i) => (

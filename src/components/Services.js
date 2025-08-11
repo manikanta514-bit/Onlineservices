@@ -52,7 +52,6 @@ const Services = () => {
           <p>Professional interior and exterior painting for homes and offices.</p>
         </div>
 
-        {/* New Packers and Movers service box */}
         <div className="mani-box" onClick={() => navigate("/packersmovers")}>
           <i className="fas fa-truck-moving fa-3x text-orange-600"></i>
           <h3>Packers and Movers</h3>
@@ -68,5 +67,4 @@ const Services = () => {
     </div>
   );
 };
-
 export default Services;

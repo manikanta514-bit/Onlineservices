@@ -1,12 +1,13 @@
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaBroom } from "react-icons/fa";
-import { useContext } from "react";
-import { BookingContext } from "../context/BookingContext"; 
+import { BookingContext } from "../context/BookingContext";
 
 const Cleaning = () => {
   const navigate = useNavigate();
-  const { addBooking } = useContext(BookingContext); 
-
+  const { user, addBooking } = useContext(BookingContext);
+   
+  
   const cleaningServices = [
     { name: "1BHK Full House Cleaning", charges: "₹1,499", desc: "Complete cleaning for 1BHK including kitchen, bathrooms, living room, and bedrooms.", img: "/images/Cleaning.png" },
     { name: "2BHK Full House Cleaning", charges: "₹2,299", desc: "Detailed cleaning for a 2BHK home to make it spotless and fresh.", img: "/images/2Bhk.png" },
@@ -24,7 +25,7 @@ const Cleaning = () => {
     { name: "Curtain Cleaning", charges: "₹899", desc: "Dust and stain removal for all types of curtains.", img: "/images/curtain cleaning.png" },
     { name: "Mattress Cleaning", charges: "₹1,299", desc: "Deep cleaning to remove dust mites and bacteria.", img: "/images/mattress cleaning.png" },
     { name: "Move-in Cleaning", charges: "₹2,999", desc: "Full cleaning service to make your new home ready to live in.", img: "/images/Movein.png" },
-    { name: "Move-out Cleaning", charges: "₹2,999", desc: "Ensure your old home is spotless before moving out.", img: "images/Moveout.png" },
+    { name: "Move-out Cleaning", charges: "₹2,999", desc: "Ensure your old home is spotless before moving out.", img: "/images/Moveout.png" },
     { name: "Spring Cleaning", charges: "₹3,499", desc: "Complete annual deep cleaning for a fresh start.", img: "/images/spring season cleaning.png" },
     { name: "Post-Construction Cleaning", charges: "₹5,999", desc: "Remove dust, debris, and stains after renovation.", img: "/images/Post construction cleaning.png" },
     { name: "Daily Maid Service", charges: "₹9,999/month", desc: "Dedicated maid for daily household cleaning.", img: "/images/daily maid service.png" },
@@ -40,42 +41,44 @@ const Cleaning = () => {
     { name: "Car Full Detailing", charges: "₹1,499", desc: "Comprehensive interior and exterior cleaning and polishing.", img: "/images/car full detailing.png" },
     { name: "Bike Interior & Exterior Cleaning", charges: "₹499", desc: "Complete cleaning service for bike interiors and exteriors.", img: "/images/bikeinterior and exterior.png" },
   ];
+  
 
-  const handleClea = (service) => {
-    addBooking({ ...service, category: "Cleaning" }); 
+  const handleBooking = (service) => {
+    if (!user) {
+      alert("Please login or signup to book a service.");
+      navigate("/signup");
+      return;
+    }
+    addBooking({
+      ...service,
+      category: "Cleaning",
+      userId: user.uid,
+      userEmail: user.email,
+    });
     navigate("/userdashboard");
   };
 
   return (
     <div className="guys-detail">
       <h1>
-        Professional Cleaning Services{" "}
-        <FaBroom style={{ color: "gold", marginLeft: "8px" }} />
+        Professional Cleaning Services <FaBroom style={{ color: "gold", marginLeft: "8px" }} />
       </h1>
       <p>
-        Choose from a wide variety of cleaning packages designed to give you a
-        spotless and healthy environment. Our services cover everything from
-        basic room cleaning to deep cleaning of entire homes and offices.
+        Choose from a wide variety of cleaning packages designed to give you a spotless and healthy environment.
+        Our services cover everything from basic room cleaning to deep cleaning of entire homes and offices.
       </p>
       <div className="guys-grid">
         {cleaningServices.map((service, index) => (
           <div key={index} className="guys-card">
             {service.img && (
               <div className="logo-container">
-                <img
-                  src={service.img}
-                  alt={service.name}
-                  className="service-logo"
-                />
+                <img src={service.img} alt={service.name} className="service-logo" />
               </div>
             )}
             <h3>{service.name}</h3>
             <p>{service.desc}</p>
             <h4 className="guys-price">{service.charges}</h4>
-            <button
-              className="guys-btn"
-              onClick={() => handleClea(service)} 
-            >
+            <button className="guys-btn" onClick={() => handleBooking(service)}>
               Book Service
             </button>
           </div>
