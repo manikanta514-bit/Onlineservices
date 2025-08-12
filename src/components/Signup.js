@@ -31,7 +31,7 @@ const Signup = () => {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         await updateProfile(userCredential.user, { displayName: name });
         setLoading(false);
-        navigate('/services'); 
+        navigate('/services');  // NEW: After signup go to services page
       } catch (err) {
         setError(err.message);
         setLoading(false);
@@ -83,7 +83,7 @@ const Signup = () => {
         </button>
         <button 
           className="auth-btn auth-btn-secondary mt-2" 
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/')}  // NEW: changed '/' for clarity (same as before)
           disabled={loading}
         >
           Back to Home

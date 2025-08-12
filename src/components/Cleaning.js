@@ -6,8 +6,7 @@ import { BookingContext } from "../context/BookingContext";
 const Cleaning = () => {
   const navigate = useNavigate();
   const { user, addBooking } = useContext(BookingContext);
-   
-  
+
   const cleaningServices = [
     { name: "1BHK Full House Cleaning", charges: "₹1,499", desc: "Complete cleaning for 1BHK including kitchen, bathrooms, living room, and bedrooms.", img: "/images/Cleaning.png" },
     { name: "2BHK Full House Cleaning", charges: "₹2,299", desc: "Detailed cleaning for a 2BHK home to make it spotless and fresh.", img: "/images/2Bhk.png" },
@@ -41,12 +40,12 @@ const Cleaning = () => {
     { name: "Car Full Detailing", charges: "₹1,499", desc: "Comprehensive interior and exterior cleaning and polishing.", img: "/images/car full detailing.png" },
     { name: "Bike Interior & Exterior Cleaning", charges: "₹499", desc: "Complete cleaning service for bike interiors and exteriors.", img: "/images/bikeinterior and exterior.png" },
   ];
-  
 
+  
   const handleBooking = (service) => {
     if (!user) {
-      alert("Please login or signup to book a service.");
-      navigate("/signup");
+      alert("Please login or signup to book a service."); 
+      navigate("/signup"); 
       return;
     }
     addBooking({

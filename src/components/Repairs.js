@@ -1,4 +1,3 @@
-// Repairs.js
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaWrench } from "react-icons/fa";
@@ -23,9 +22,11 @@ const Repairs = () => {
     { name: "Water Dispenser Repair", charges: "₹249-₹699", desc: "Hot/cold water mechanisms, dispenser panel & cooling.", img: "/images/repairs/waterdispenserrepair.png" }
   ];
 
+  
   const handleBooking = (service) => {
     if (!user) {
-      navigate("/signup");
+      alert("Please login or signup to book a service."); 
+      navigate("/signup"); 
       return;
     }
     addBooking({ ...service, category: "Repairs", userId: user.uid, userEmail: user.email });

@@ -79,7 +79,7 @@ export const BookingProvider = ({ children }) => {
     }
 
     try {
-      // *** UPDATED: Reference to user's bookings subcollection ***
+      //  UPDATED: Reference to user's bookings subcollection ***
       const bookingsRef = collection(db, "users", user.uid, "bookings");
 
       // Get all booking docs for this user

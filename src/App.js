@@ -3,9 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './App.css';
-
 // Components
-import ProtectedRoute from "./components/ProtectedRoute";
 import Cleaning from './components/Cleaning';
 import Repairs from './components/Repairs';
 import Installations from './components/Installations';
@@ -21,7 +19,6 @@ import PackersMovers from './components/PackersMovers';
 import { BookingProvider } from './context/BookingContext';
 import UserDashboard from './components/UserDashboard';
 
-// ------------------- Header -------------------
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
@@ -52,7 +49,6 @@ const Header = () => {
   );
 };
 
-// ------------------- Home -------------------
 const Home = () => {
   const cardStyleCleaning = { backgroundImage: 'url("/images/Cleaning.png")', backgroundSize: 'cover', backgroundPosition: 'center' };
   const cardStyleRepairs = { backgroundImage: 'url("/images/Repairs.png")', backgroundSize: 'cover', backgroundPosition: 'center' };
@@ -61,7 +57,6 @@ const Home = () => {
   const cardStylePackersMovers = { backgroundImage: 'url("/images/packersmovers/fragile tems.png")', backgroundSize: 'cover', backgroundPosition: 'center' };
   return (
     <main className="main-content">
-      {/* Hero Section */}
       <div className="hero-section center-text">
         <h1>Welcome to Online Services</h1>
         <h3>Professional Services, Just a Click Away.</h3>
@@ -76,8 +71,6 @@ const Home = () => {
           Experience the new standard of home services—affordable, dependable, and designed for your modern life.
         </p>
       </div>
-
-      {/* Services Intro */}
       <div className="services-intro">
         <h2>Your One-Stop Solution for Home & Office Care</h2>
         <p>
@@ -86,8 +79,6 @@ const Home = () => {
           for every job directly to you. Explore our primary services below.
         </p>
       </div>
-
-      {/* Services Section */}
       <div className="services-grid">
         <div className="service-card" style={cardStyleCleaning}>
           <i className="fas fa-spray-can fa-3x card-icon" style={{ color: "gold" }}></i>
@@ -145,8 +136,6 @@ const Home = () => {
           </ul>
            </div>
       </div>
-
-      {/* Testimonials Section */}
       <div className="testimonials-section">
         <h2>What Our Customers Say</h2>
         <div className="testimonials-grid">
@@ -192,7 +181,6 @@ const Home = () => {
   );
 };
 
-
 const App = () => {
   return (
     <div className="App-css">
@@ -204,7 +192,7 @@ const App = () => {
         <Route path="/installations" element={<Installations />} />
         <Route path="/painting" element={<Painting />} />
         <Route path="/packersmovers" element={<PackersMovers />} />
-        <Route path="/services" element={<ProtectedRoute><Services /></ProtectedRoute>} />
+        <Route path="/services" element={<Services />} />
         <Route path="/help" element={<Help />} />
         <Route path="/about" element={<About />} />
         <Route path="/settings" element={<Settings />} />

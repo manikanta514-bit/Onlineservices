@@ -10,35 +10,34 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
- const handleLogin = async () => {
-  if (!email || !password) {
-    setError('⚠️ Please fill in both fields');
-    return;
-  }
-
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    setError('✅ Login successful!');
-    navigate('/services');
-  } catch (err) {
-    console.error("Firebase login error:", err.code, err.message);
-
-    if (err.code === "auth/user-not-found") {
-      setError("❌ No account found. Redirecting to Signup...");
-      setTimeout(() => navigate('/signup'), 2000);
-    } else if (err.code === "auth/invalid-email") {
-      setError("❌ Invalid email format");
-    } else if (err.code === "auth/wrong-password") {
-      setError("❌ Incorrect password. Please try again.");
-    } else if (err.code === "auth/too-many-requests") {
-      setError("⚠️ Too many attempts. Please try again later.");
-    } else {
-      setError("❌ You do not have an account. Redirecting to Signup...");
-      setTimeout(() => navigate('/signup'), 2000);
+  const handleLogin = async () => {
+    if (!email || !password) {
+      setError('⚠️ Please fill in both fields');
+      return;
     }
-  }
-};
 
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      setError(' Login successful!');
+      navigate('/services');  
+    } catch (err) {
+      console.error("Firebase login error:", err.code, err.message);
+
+      if (err.code === "auth/user-not-found") {
+        setError("❌ No account found. Redirecting to Signup...");
+        setTimeout(() => navigate('/signup'), 2000);
+      } else if (err.code === "auth/invalid-email") {
+        setError("❌ Invalid email format");
+      } else if (err.code === "auth/wrong-password") {
+        setError("❌ Incorrect password. Please try again.");
+      } else if (err.code === "auth/too-many-requests") {
+        setError("⚠️ Too many attempts. Please try again later.");
+      } else {
+        setError("❌ You do not have an account. Redirecting to Signup...");
+        setTimeout(() => navigate('/signup'), 2000);
+      }
+    }
+  };
 
   return (
     <div className="auth-page">
@@ -67,7 +66,7 @@ const Login = () => {
         </button>
         <button
           className="auth-btn auth-btn-secondary mt-2"
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/')}  // NEW: back to home
         >
           Back to Home
         </button>

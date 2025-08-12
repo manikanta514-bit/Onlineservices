@@ -1,4 +1,3 @@
-// Installations.js
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { GiDrill } from "react-icons/gi";
@@ -26,6 +25,7 @@ const Installations = () => {
 
   const handleBooking = (service) => {
     if (!user) {
+      alert("Please login or signup to book a service."); 
       navigate("/signup");
       return;
     }
