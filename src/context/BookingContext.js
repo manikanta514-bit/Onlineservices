@@ -31,9 +31,9 @@ export const BookingProvider = ({ children }) => {
   useEffect(() => {
     if (!user) return;
 
-    // *** UPDATED: Query user-specific subcollection bookings ***
+    // Query user-specific bookings subcollection ordered by createdAt
     const bookingsQuery = query(
-      collection(db, "users", user.uid, "bookings"), // <-- changed path here
+      collection(db, "users", user.uid, "bookings"),
       orderBy("createdAt", "desc")
     );
 
@@ -50,7 +50,7 @@ export const BookingProvider = ({ children }) => {
     return () => unsubscribe();
   }, [user]);
 
-  // addBooking wrapped in useCallback
+  // Add booking function expects booking object including city and area
   const addBooking = useCallback(
     async (booking) => {
       if (!user) {
@@ -59,9 +59,9 @@ export const BookingProvider = ({ children }) => {
       }
 
       try {
-        // *** UPDATED: Add booking to user's bookings subcollection ***
+        // Save city and area inside booking document
         await addDoc(collection(db, "users", user.uid, "bookings"), {
-          ...booking,
+          ...booking, // booking should include city and area fields
           createdAt: serverTimestamp(),
         });
       } catch (error) {
@@ -71,7 +71,7 @@ export const BookingProvider = ({ children }) => {
     [user]
   );
 
-  // clearBookings updated to delete documents from user's bookings subcollection
+  // Clear bookings deletes all booking docs for user
   const clearBookings = useCallback(async () => {
     if (!user) {
       console.warn("No user logged in, cannot clear bookings.");
@@ -79,10 +79,7 @@ export const BookingProvider = ({ children }) => {
     }
 
     try {
-      //  UPDATED: Reference to user's bookings subcollection ***
       const bookingsRef = collection(db, "users", user.uid, "bookings");
-
-      // Get all booking docs for this user
       const querySnapshot = await getDocs(bookingsRef);
 
       if (querySnapshot.empty) {
@@ -90,7 +87,6 @@ export const BookingProvider = ({ children }) => {
         return;
       }
 
-      // Batch delete all booking docs
       const batch = writeBatch(db);
       querySnapshot.forEach((doc) => {
         batch.delete(doc.ref);

@@ -1,13 +1,17 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom"; // added useLocation
 import { FaPaintRoller } from "react-icons/fa";
 import { BookingContext } from "../context/BookingContext";
 import "../App.css";
 
 const Painting = () => {
   const navigate = useNavigate();
+  const location = useLocation(); // added this
   const { addBooking, user } = useContext(BookingContext);
-  
+
+  // Get city and area from location.state or fallback empty string
+  const { city = "", area = "" } = location.state || {};
+
   const paintingServices = [
     {
       category: "Interior Painting",
@@ -38,15 +42,19 @@ const Painting = () => {
 
   const handleBooking = (service, category) => {
     if (!user) {
-      alert("Please login or signup to book a service."); 
+      alert("Please login or signup to book a service.");
       navigate("/signup");
       return;
     }
     addBooking({
       ...service,
       category: `Painting - ${category}`,
+      city,
+      area,
       userId: user.uid,
       userEmail: user.email,
+      username: user.displayName || user.email.split("@")[0], // added username
+      name: service.name, // keeping service name as service type
     });
     navigate("/userdashboard");
   };

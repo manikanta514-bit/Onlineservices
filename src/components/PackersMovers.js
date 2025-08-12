@@ -1,11 +1,15 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom"; // added useLocation
 import { FaTruckMoving } from "react-icons/fa";
 import { BookingContext } from "../context/BookingContext";
 
 const PackersMovers = () => {
   const navigate = useNavigate();
+  const location = useLocation(); // added
   const { addBooking, user } = useContext(BookingContext);
+
+  const { city = "", area = "" } = location.state || {};
+
   const packersMoversServices = [
     { name: "Household Shifting - 1BHK", charges: "₹4,999", desc: "Safe packing and shifting of 1BHK household goods locally or domestically.", img: "/images/packersmovers/shifting 1bhk.png" },
     { name: "Household Shifting - 2BHK", charges: "₹8,999", desc: "Complete packing and moving service for 2BHK homes including fragile items.", img: "/images/packersmovers/shifting 2bhk.png" },
@@ -20,14 +24,22 @@ const PackersMovers = () => {
     { name: "Fragile Goods Handling", charges: "₹1,499 onwards", desc: "Special care and customized packing for delicate and fragile items.", img: "/images/packersmovers/fragile tems.png" }
   ];
 
-  
   const handleBooking = (service) => {
     if (!user) {
-      alert("Please login or signup to book a service."); 
+      alert("Please login or signup to book a service.");
       navigate("/signup");
       return;
     }
-    addBooking({ ...service, category: "Packers and Movers", userId: user.uid, userEmail: user.email });
+    addBooking({
+      ...service,
+      category: "Packers and Movers",
+      city,
+      area,
+      userId: user.uid,
+      userEmail: user.email,
+      username: user.displayName || user.email.split("@")[0], // added username
+      name: service.name, // keep service name as service type
+    });
     navigate("/userdashboard");
   };
 

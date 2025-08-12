@@ -31,33 +31,56 @@ const UserDashboard = () => {
         <>
           {bookings.map((item, idx) => (
             <div key={item.id || idx} className="activity-card">
-              <h3>Booking #{idx + 1}</h3>
-
+              <h3>Booking No:{idx + 1}</h3>
+                {item.username && (
+                <p>
+                  <b>Name:</b> {item.username}
+                </p>
+              )}
               {item.category && (
                 <p>
                   <b>Category:</b> {item.category}
                 </p>
               )}
+             
+
               {item.name && (
                 <p>
-                  <b>Name:</b> {item.name}
+                  <b>Service type:</b> {item.name}
                 </p>
               )}
+
               {item.charges && (
                 <p>
                   <b>Charges:</b> {item.charges}
                 </p>
               )}
+
               {item.desc && (
                 <p>
                   <b>Description:</b> {item.desc}
                 </p>
               )}
+
+                 {item.city && (
+                <p>
+                  <b>City:</b> {item.city}
+                </p>
+              )}
+
+              {item.area && (
+                <p>
+                  <b>Area:</b> {item.area}
+                </p>
+              )}
+
+
               {item.skill && (
                 <p>
                   <b>Skill:</b> {item.skill}
                 </p>
               )}
+
               {item.exp && (
                 <p>
                   <b>Experience:</b> {item.exp}
@@ -78,8 +101,7 @@ const UserDashboard = () => {
         </>
       ) : (
         <p>
-          No recent activity yet. Book a service or worker to see your activity
-          here.
+          No recent activity yet. Book a service or worker to see your activity here.
         </p>
       )}
     </div>

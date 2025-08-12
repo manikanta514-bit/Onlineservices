@@ -161,7 +161,7 @@ body {
 .service-card:hover {
   transform: translateY(-8px);
   background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 6px 18px gold
 }
 .service-card h2 {
   margin: 15px 0 10px;
@@ -205,7 +205,7 @@ body {
 .testimonial-card:hover {
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   transform: translateY(-8px);
-  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 6px 18px gold
 }
 .quote {
   font-weight: bold;
@@ -288,10 +288,12 @@ body {
 }
 
 .auth-btn:hover {
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    background: gold;
+  color: #0f2027;
+  box-shadow: 0 6px 12px rgba(255, 215, 0, 0.7);
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.5);
 }
+
 
 .auth-btn-secondary {
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
@@ -299,10 +301,12 @@ body {
 }
 
 .auth-btn-secondary:hover {
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    background: gold;
+  color: #0f2027;
+  box-shadow: 0 6px 12px rgba(255, 215, 0, 0.7);
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.5);
 }
+
 
 .auth-error {
   background: #f8d7da;
@@ -394,7 +398,7 @@ body {
 .mani-box:hover {
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   transform: translateY(-8px);
-  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 6px 18px gold
 }
 .mani-box:active {
   transform: scale(0.98);
@@ -445,7 +449,7 @@ body {
 .guys-card:hover {
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   transform: translateY(-8px);
-  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 6px 18px gold
 }
 .back-btn-container {
   margin: 20px;
@@ -466,10 +470,12 @@ body {
 }
 
 .back-btn:hover {
-background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  transform: translateY(-8px);
-  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.5);
+   background: gold;
+  color: #0f2027;
+  box-shadow: 0 6px 12px rgba(255, 215, 0, 0.7);
+  transform: translateY(-2px);
 }
+
 
 .back-btn:active {
   transform: translateY(0);
@@ -489,9 +495,10 @@ background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
 
 }
 .back-home-btn:hover {
-background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  transform: translateY(-8px);
-  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.5);
+     background: gold;
+  color: #0f2027;
+  box-shadow: 0 6px 12px rgba(255, 215, 0, 0.7);
+  transform: translateY(-2px);
 }
 
 .back-home-btn:active {
@@ -542,9 +549,10 @@ background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   font-weight: bold;
 }
 .guys-btn:hover {
-background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  transform: translateY(-8px);
-  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.5);
+   background: gold;
+  color: #0f2027;
+  box-shadow: 0 6px 12px rgba(255, 215, 0, 0.7);
+  transform: translateY(-2px);
 }
 .settings-page {
 background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
@@ -583,9 +591,10 @@ background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
 }
 
 .logout-btn:hover {
-background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  transform: translateY(-8px);
-  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.5);
+   background: gold;
+  color: #0f2027;
+  box-shadow: 0 6px 12px rgba(255, 215, 0, 0.7);
+  transform: translateY(-2px);
 }
 
 /* ===== Responsive Design (Newly Added) ===== */
@@ -717,7 +726,7 @@ background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
 .worker-card:hover {
 background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   transform: translateY(-8px);
-  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 6px 18px gold
 }
 
 .worker-img {
@@ -768,7 +777,7 @@ background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
 .activity-card:hover {
  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   transform: translateY(-8px);
-  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 6px 18px gold
 }
 
 /* Card Title */
@@ -806,7 +815,7 @@ background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
 .clear-btn:hover {
  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   transform: translateY(-8px);
-  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 6px 18px gold
 }
 
 /* Empty State */
@@ -846,5 +855,31 @@ background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+.service-select-btn {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.service-select-btn:hover {
+  background: gold;
+  color: #0f2027;
+  box-shadow: 0 6px 12px rgba(255, 215, 0, 0.7);
+  transform: translateY(-2px);
+}
+
+.service-select-btn.selected {
+  background: gold;
+  color: #0f2027;
+  box-shadow: 0 6px 12px rgba(255, 215, 0, 0.9);
 }
 

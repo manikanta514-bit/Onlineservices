@@ -1,11 +1,14 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom"; // added useLocation
 import { FaWrench } from "react-icons/fa";
 import { BookingContext } from "../context/BookingContext";
 
 const Repairs = () => {
   const navigate = useNavigate();
+  const location = useLocation(); // added
   const { addBooking, user } = useContext(BookingContext);
+
+  const { city = "", area = "" } = location.state || {};
 
   const repairServices = [
     { name: "Mixer/Grinder Repair", charges: "₹249-₹399", desc: "Fix motor, blades, wiring issues, and maintenance.", img: "/images/repairs/mixergrinder repair.png" },
@@ -22,14 +25,22 @@ const Repairs = () => {
     { name: "Water Dispenser Repair", charges: "₹249-₹699", desc: "Hot/cold water mechanisms, dispenser panel & cooling.", img: "/images/repairs/waterdispenserrepair.png" }
   ];
 
-  
   const handleBooking = (service) => {
     if (!user) {
-      alert("Please login or signup to book a service."); 
-      navigate("/signup"); 
+      alert("Please login or signup to book a service.");
+      navigate("/signup");
       return;
     }
-    addBooking({ ...service, category: "Repairs", userId: user.uid, userEmail: user.email });
+    addBooking({
+      ...service,
+      category: "Repairs",
+      city,
+      area,
+      userId: user.uid,
+      userEmail: user.email,
+      username: user.displayName || user.email.split("@")[0], // added username
+      name: service.name,
+    });
     navigate("/userdashboard");
   };
 

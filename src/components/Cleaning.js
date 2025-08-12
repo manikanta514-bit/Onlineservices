@@ -1,11 +1,15 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom"; // added useLocation
 import { FaBroom } from "react-icons/fa";
 import { BookingContext } from "../context/BookingContext";
 
 const Cleaning = () => {
   const navigate = useNavigate();
+  const location = useLocation(); // added this
   const { user, addBooking } = useContext(BookingContext);
+
+  // Get city and area from location.state or empty string fallback
+  const { city = "", area = "" } = location.state || {};
 
   const cleaningServices = [
     { name: "1BHK Full House Cleaning", charges: "₹1,499", desc: "Complete cleaning for 1BHK including kitchen, bathrooms, living room, and bedrooms.", img: "/images/Cleaning.png" },
@@ -41,21 +45,25 @@ const Cleaning = () => {
     { name: "Bike Interior & Exterior Cleaning", charges: "₹499", desc: "Complete cleaning service for bike interiors and exteriors.", img: "/images/bikeinterior and exterior.png" },
   ];
 
-  
   const handleBooking = (service) => {
-    if (!user) {
-      alert("Please login or signup to book a service."); 
-      navigate("/signup"); 
-      return;
-    }
-    addBooking({
-      ...service,
-      category: "Cleaning",
-      userId: user.uid,
-      userEmail: user.email,
-    });
-    navigate("/userdashboard");
-  };
+  if (!user) {
+    alert("Please login or signup to book a service."); 
+    navigate("/signup"); 
+    return;
+  }
+  addBooking({
+    ...service,
+    category: "Cleaning",
+    city,
+    area,
+    userId: user.uid,
+    userEmail: user.email,
+    username: user.displayName || user.email.split("@")[0],  // Added username
+    name: service.name, // keeping service name as service type
+  });
+  navigate("/userdashboard");
+};
+
 
   return (
     <div className="guys-detail">
