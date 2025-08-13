@@ -37,7 +37,7 @@ export const BookingProvider = ({ children }) => {
 
     const bookingsQuery = query(
       collection(db, "users", user.uid, "bookings"),
-      orderBy("createdAt", "desc")
+      orderBy("createdAt", "asc")
     );
 
     const unsubscribe = onSnapshot(

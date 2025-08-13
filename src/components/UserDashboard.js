@@ -2,8 +2,8 @@ import { useContext, useState } from "react";
 import { BookingContext } from "../context/BookingContext";
 
 const UserDashboard = () => {
-  const { bookings, clearBookings, user } = useContext(BookingContext);
-  console.log("Logged in user:", user);
+  const { bookings, clearBookings} = useContext(BookingContext);
+
   const [loading, setLoading] = useState(false);
 
   const handleClearBookings = async () => {
