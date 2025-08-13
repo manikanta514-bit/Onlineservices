@@ -66,13 +66,21 @@ const Login = () => {
         </button>
         <button
           className="auth-btn auth-btn-secondary mt-2"
-          onClick={() => navigate('/')}  // NEW: back to home
+          onClick={() => navigate('/')}  
         >
           Back to Home
         </button>
 
+      
         <p className="text-center mt-3">
-          Don't have an account? <a href="/signup" className="auth-link">Signup</a>
+          Don't have an account?{' '}
+          <span
+            className="auth-link"
+            style={{ cursor: 'pointer', color: '#2c5364' }}
+            onClick={() => navigate('/signup')}
+          >
+            Signup
+          </span>
         </p>
       </div>
     </div>
