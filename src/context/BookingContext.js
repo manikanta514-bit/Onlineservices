@@ -18,6 +18,10 @@ export const BookingProvider = ({ children }) => {
   const [bookings, setBookings] = useState([]);
   const [user, setUser] = useState(null);
 
+  // ✅ Added: Sticky service selection states
+  const [selectedCity, setSelectedCity] = useState(""); 
+  const [selectedArea, setSelectedArea] = useState("");
+
   // Listen to Firebase Auth state changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -31,7 +35,6 @@ export const BookingProvider = ({ children }) => {
   useEffect(() => {
     if (!user) return;
 
-    // Query user-specific bookings subcollection ordered by createdAt
     const bookingsQuery = query(
       collection(db, "users", user.uid, "bookings"),
       orderBy("createdAt", "desc")
@@ -50,7 +53,7 @@ export const BookingProvider = ({ children }) => {
     return () => unsubscribe();
   }, [user]);
 
-  // Add booking function expects booking object including city and area
+  // Add booking
   const addBooking = useCallback(
     async (booking) => {
       if (!user) {
@@ -59,9 +62,8 @@ export const BookingProvider = ({ children }) => {
       }
 
       try {
-        // Save city and area inside booking document
         await addDoc(collection(db, "users", user.uid, "bookings"), {
-          ...booking, // booking should include city and area fields
+          ...booking,
           createdAt: serverTimestamp(),
         });
       } catch (error) {
@@ -71,7 +73,7 @@ export const BookingProvider = ({ children }) => {
     [user]
   );
 
-  // Clear bookings deletes all booking docs for user
+  // Clear bookings
   const clearBookings = useCallback(async () => {
     if (!user) {
       console.warn("No user logged in, cannot clear bookings.");
@@ -101,7 +103,19 @@ export const BookingProvider = ({ children }) => {
   }, [user]);
 
   return (
-    <BookingContext.Provider value={{ bookings, addBooking, clearBookings, user }}>
+    <BookingContext.Provider
+      value={{
+        bookings,
+        addBooking,
+        clearBookings,
+        user,
+        //  Added: Pass sticky states to context consumers
+        selectedCity,
+        setSelectedCity,
+        selectedArea,
+        setSelectedArea
+      }}
+    >
       {children}
     </BookingContext.Provider>
   );

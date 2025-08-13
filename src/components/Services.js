@@ -1,13 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../context/firebase";
+import { BookingContext } from "../context/BookingContext"; // ✅ Match exact case of filename
 import "../App.css";
 
 const Services = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
-  const [selectedArea, setSelectedArea] = useState("");
+
+  // ✅ Added: Use BookingContext to store selected city & area
+  const {  selectedCity, setSelectedCity, selectedArea, setSelectedArea } =
+    useContext(BookingContext);
+
+  // ✅ Removed: Local component state for city/area (now from context)
+  // const [selectedCity, setSelectedCity] = useState("");
+  // const [selectedArea, setSelectedArea] = useState("");
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -19,9 +26,14 @@ const Services = () => {
   }, []);
 
   const cities = {
-    Rajahmundry: ["devi chowk", "Kotipalli Bus Stand", "Morampudi","Diwancheruvu","Danavaipeta", "Lalacheruvu", ],
-    Kakinada: ["Main Road","Sarpavaram","Bhanugudi Junction","Jagannaickpur","Gandhi Nagar",],
-    Hyderabad: [ "Madhapur", "Gachibowli","Kukatpally","Banjara Hills", "Secunderabad",],
+    Rajahmundry: ["Devi Chowk", "Kotipalli Bus Stand", "Morampudi", "Diwancheruvu", "Danavaipeta", "Lalacheruvu"],
+    Kakinada: ["Main Road", "Sarpavaram", "Bhanugudi Junction", "Jagannaickpur", "Gandhi Nagar"],
+    Hyderabad: ["Madhapur", "Gachibowli", "Kukatpally", "Banjara Hills", "Secunderabad"],
+    Vijayawada: ["Benz Circle", "Governorpet", "Gunadala", "Patamata", "Poranki"],
+    Visakhapatnam: ["MVP Colony", "Dwaraka Nagar", "Gajuwaka", "Seethammadhara", "Beach Road"],
+    Guntur: ["Brodipet", "Arundelpet", "Lodge Center", "Kothapet", "Patnam Bazar"],
+    Warangal: ["Hanamkonda", "Kazipet", "Nakkalagutta", "Subedari", "Bhadrakali"],
+    Tirupati: ["Alipiri", "Kapila Teertham", "Korlagunta", "Tata Nagar", "RC Road"]
   };
 
   return (
@@ -32,44 +44,61 @@ const Services = () => {
         </h2>
       )}
 
-      <div style={{ textAlign: "center", maxWidth: "800px",margin: "20px auto",color: "white" }}>
-        <p> At <b>Online Services</b>, we provide fast, reliable, and affordablehome & office solutions — from cleaning and repairs to expertinstallations and moving services.</p>
-        <p>Simply select your city, choose your area, and pick the service youneed. Our professionals will take care of the rest!</p>
+      <div style={{ textAlign: "center", maxWidth: "800px", margin: "20px auto", color: "white" }}>
+        <p>
+          At <b>Online Services</b>, we provide fast, reliable, and affordable
+          home & office solutions — from cleaning and repairs to expert
+          installations and moving services.
+        </p>
+        <p>
+          Simply select your city, choose your area, and pick the service you
+          need. Our professionals will take care of the rest!
+        </p>
       </div>
-      
+
       <h2 style={{ textAlign: "center", marginTop: "20px", color: "gold" }}>
         Select the city to provide services
       </h2>
-      <div style={{display: "flex", justifyContent: "center",gap: "15px",marginTop: "15px", }}>
+      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "15px", marginTop: "15px" }}>
         {Object.keys(cities).map((city) => (
-          <button key={city} onClick={() => { setSelectedCity(city);
-              setSelectedArea(""); // Reset area when city changes
-            }}  className={`service-select-btn ${
-              selectedCity === city ? "selected" : ""
-            }`}>{city}</button>
+          <button
+            key={city}
+            onClick={() => {
+              setSelectedCity(city); // ✅ Now stored in context
+              setSelectedArea("");   // ✅ Reset area in context
+            }}
+            className={`service-select-btn ${selectedCity === city ? "selected" : ""}`}
+          >
+            {city}
+          </button>
         ))}
       </div>
+
       {selectedCity && (
         <>
           <h3 style={{ textAlign: "center", marginTop: "20px", color: "gold" }}>
             Select an area in {selectedCity}
           </h3>
-          <div style={{display: "flex",flexWrap: "wrap",justifyContent: "center",gap: "10px", marginTop: "10px", }}>
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "10px", marginTop: "10px" }}>
             {cities[selectedCity].map((area) => (
-              <button key={area} onClick={() => setSelectedArea(area)} className={`service-select-btn ${
-                  selectedArea === area ? "selected" : ""
-                }`} > {area} </button>
+              <button
+                key={area}
+                onClick={() => setSelectedArea(area)} // ✅ Now stored in context
+                className={`service-select-btn ${selectedArea === area ? "selected" : ""}`}
+              >
+                {area}
+              </button>
             ))}
           </div>
         </>
       )}
+
       {selectedArea && (
         <h2 style={{ textAlign: "center", marginTop: "30px" }}>
           Click the service you want to choose below
         </h2>
       )}
 
-      {/* Services Grid */}
       {selectedArea && (
         <div className="mani-grid" style={{ marginTop: "20px" }}>
           <div
@@ -142,7 +171,6 @@ const Services = () => {
         </div>
       )}
 
-    
       <div style={{ display: "flex", justifyContent: "center", marginTop: "30px" }}>
         <button className="back-home-btn" onClick={() => navigate("/")}>
           Back to Home
