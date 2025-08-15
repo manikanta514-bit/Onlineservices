@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom'; // -> Import useLocation
 import '../App.css';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../context/firebase';
@@ -9,8 +9,16 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const location = useLocation(); // -> Get the current location object
 
-  const handleLogin = async () => {
+  // -> Determine where to redirect after login.
+  // It defaults to '/services' if the user came directly to the login page.
+  const from = location.state?.from?.pathname || '/services';
+
+  // -> The function now accepts the form event 'e'
+  const handleLogin = async (e) => {
+    e.preventDefault(); // -> Prevent the page from reloading on submit
+
     if (!email || !password) {
       setError('⚠️ Please fill in both fields');
       return;
@@ -19,7 +27,8 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       setError(' Login successful!');
-      navigate('/services');  
+      // -> Navigate to the 'from' location after a successful login
+      navigate(from, { replace: true });
     } catch (err) {
       console.error("Firebase login error:", err.code, err.message);
 
@@ -41,7 +50,8 @@ const Login = () => {
 
   return (
     <div className="auth-page">
-      <div className="auth-card">
+      {/* -> The form now handles the submission */}
+      <form className="auth-card" onSubmit={handleLogin}>
         <h2>Login to Book Services</h2>
         {error && <div className="auth-error">{error}</div>}
 
@@ -51,6 +61,7 @@ const Login = () => {
           placeholder="Enter Email"
           value={email}
           onChange={e => setEmail(e.target.value)}
+          required
         />
 
         <input
@@ -59,19 +70,21 @@ const Login = () => {
           placeholder="Enter Password"
           value={password}
           onChange={e => setPassword(e.target.value)}
+          required
         />
 
-        <button className="auth-btn" onClick={handleLogin}>
+        {/* -> The button is now a 'submit' type */}
+        <button className="auth-btn" type="submit">
           Submit
         </button>
         <button
+          type="button" // -> Set type to 'button' to prevent form submission
           className="auth-btn auth-btn-secondary mt-2"
-          onClick={() => navigate('/')}  
+          onClick={() => navigate('/')}
         >
           Back to Home
         </button>
 
-      
         <p className="text-center mt-3">
           Don't have an account?{' '}
           <span
@@ -82,7 +95,7 @@ const Login = () => {
             Signup
           </span>
         </p>
-      </div>
+      </form>
     </div>
   );
 };

@@ -1,18 +1,18 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../context/firebase";
-import { BookingContext } from "../context/BookingContext"; // ✅ Match exact case of filename
+import { BookingContext } from "../context/BookingContext"; 
 import "../App.css";
 
 const Services = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
 
-  // ✅ Added: Use BookingContext to store selected city & area
+  //  Added: Use BookingContext to store selected city & area
   const {  selectedCity, setSelectedCity, selectedArea, setSelectedArea } =
     useContext(BookingContext);
 
-  // ✅ Removed: Local component state for city/area (now from context)
+  //  Removed: Local component state for city/area (now from context)
   // const [selectedCity, setSelectedCity] = useState("");
   // const [selectedArea, setSelectedArea] = useState("");
 

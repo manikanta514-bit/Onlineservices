@@ -9,6 +9,7 @@ import {
   serverTimestamp,
   getDocs,
   writeBatch,
+  doc,
 } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -17,86 +18,103 @@ export const BookingContext = createContext();
 export const BookingProvider = ({ children }) => {
   const [bookings, setBookings] = useState([]);
   const [user, setUser] = useState(null);
-
-  // ✅ Added: Sticky service selection states
-  const [selectedCity, setSelectedCity] = useState(""); 
+  const [userProfile, setUserProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [selectedCity, setSelectedCity] = useState("");
   const [selectedArea, setSelectedArea] = useState("");
 
-  // Listen to Firebase Auth state changes
+  // Effect 1: Handles user authentication state (login/logout)
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      if (!currentUser) setBookings([]); // Clear bookings on logout
+      if (!currentUser) {
+        // If logged out, clear all data and finish loading
+        setUserProfile(null);
+        setBookings([]);
+        setLoading(false);
+      }
     });
     return () => unsubscribe();
   }, []);
 
-  // Listen to bookings subcollection for current user
+  // Effect 2: Fetches the logged-in user's profile (including role)
   useEffect(() => {
-    if (!user) return;
+    if (!user) return; // Only run if a user is logged in
 
+    const userDocRef = doc(db, "users", user.uid);
+    const unsubscribeProfile = onSnapshot(
+      userDocRef,
+      (snapshot) => {
+        setUserProfile(snapshot.exists() ? snapshot.data() : null);
+      },
+      (error) => {
+        console.error("Firestore Error: Failed to fetch user profile.", error);
+        setUserProfile(null);
+      }
+    );
+    return () => unsubscribeProfile();
+  }, [user]);
+
+  // Effect 3: Fetches the user's bookings and controls the final loading state
+  useEffect(() => {
+    if (!user) {
+      setBookings([]); // Clear bookings on logout
+      return;
+    }
+
+    setLoading(true); // Show loading screen while fetching bookings
     const bookingsQuery = query(
       collection(db, "users", user.uid, "bookings"),
       orderBy("createdAt", "asc")
     );
 
-    const unsubscribe = onSnapshot(
+    const unsubscribeBookings = onSnapshot(
       bookingsQuery,
       (snapshot) => {
-        setBookings(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+        const userBookings = snapshot.docs.map((doc) => ({
+          id: doc.id, ...doc.data(),
+        }));
+        setBookings(userBookings);
+        setLoading(false); // Finish loading after bookings are fetched
       },
       (error) => {
-        console.error("Error fetching bookings:", error);
+        console.error("Failed to fetch bookings:", error);
+        setLoading(false); // Also finish loading on error
       }
     );
-
-    return () => unsubscribe();
+    return () => unsubscribeBookings();
   }, [user]);
 
-  // Add booking
-  const addBooking = useCallback(
-    async (booking) => {
-      if (!user) {
-        console.error("User not authenticated. Cannot add booking.");
-        return;
-      }
+  // Function to add a new booking
+  const addBooking = useCallback(async (bookingData) => {
+    if (!user) return;
 
-      try {
-        await addDoc(collection(db, "users", user.uid, "bookings"), {
-          ...booking,
-          createdAt: serverTimestamp(),
-        });
-      } catch (error) {
-        console.error("Error adding booking:", error);
-      }
-    },
-    [user]
-  );
+    const newBooking = {
+      ...bookingData,
+      userId: user.uid,
+      status: 'Pending', // Add a default status for the admin to see
+      createdAt: serverTimestamp(),
+    };
 
-  // Clear bookings
-  const clearBookings = useCallback(async () => {
-    if (!user) {
-      console.warn("No user logged in, cannot clear bookings.");
-      return;
+    try {
+      // Write to the top-level 'bookings' collection for the admin
+      await addDoc(collection(db, "bookings"), newBooking);
+      // Also write to the user-specific subcollection
+      await addDoc(collection(db, "users", user.uid, "bookings"), newBooking);
+    } catch (error) {
+      console.error("Error adding booking:", error);
     }
+  }, [user]);
 
+  // Function to clear all of a user's bookings
+  const clearBookings = useCallback(async () => {
+    if (!user) return;
     try {
       const bookingsRef = collection(db, "users", user.uid, "bookings");
       const querySnapshot = await getDocs(bookingsRef);
-
-      if (querySnapshot.empty) {
-        setBookings([]);
-        return;
-      }
-
       const batch = writeBatch(db);
-      querySnapshot.forEach((doc) => {
-        batch.delete(doc.ref);
-      });
-
+      querySnapshot.forEach((doc) => batch.delete(doc.ref));
       await batch.commit();
-      setBookings([]);
-      console.log("All bookings deleted from Firestore and cleared from state.");
     } catch (error) {
       console.error("Error clearing bookings:", error);
     }
@@ -105,15 +123,16 @@ export const BookingProvider = ({ children }) => {
   return (
     <BookingContext.Provider
       value={{
+        user,
+        userProfile,
         bookings,
         addBooking,
         clearBookings,
-        user,
-        //  Added: Pass sticky states to context consumers
+        loading,
         selectedCity,
         setSelectedCity,
         selectedArea,
-        setSelectedArea
+        setSelectedArea,
       }}
     >
       {children}

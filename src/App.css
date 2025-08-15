@@ -52,19 +52,19 @@ body {
   font-size: 16px;
   cursor: pointer;
   transition: transform 0.2s ease, background 0.3s ease;
-  color: white;
-   /*background: linear-gradient(135deg, #00c6ff, #0072ff, #ff61d2);*/
+  color: gold;
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
 
 }
 .nav-button:hover {
   transform: scale(1.05);
+    box-shadow: 0 6px 18px gold
 }
 .hamburger {
   background: none;
   border: none;
   cursor: pointer;
-  color: white;
+  color: gold;
   margin-left: 15px;
 }
 .hamburger-menu {
@@ -72,9 +72,7 @@ body {
   top: 70px;
   left: 10px;
   width: 200px;
-    /*background: linear-gradient(135deg, #00c6ff, #0072ff, #ff61d2);*/
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
   border-radius: 8px;
   display: flex;
@@ -91,7 +89,6 @@ body {
   transition: background 0.3s ease, color 0.3s ease;
 }
 .hamburger-menu a:hover {
-  background: rgba(255, 255, 255, 0.15);
   color: #ffd700;
 }
 .hamburger-menu hr {
@@ -151,8 +148,10 @@ body {
   background: rgba(255, 255, 255, 0.15);
   border-radius: 12px;
   padding: 20px;
-  width: 500px;
+  max-height: 1000px;
+  width: 480px;
   max-width: 100%;
+  height: 200%;
   text-align: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   transition: transform 0.3s ease, background 0.3s ease;
@@ -161,7 +160,7 @@ body {
 .service-card:hover {
   transform: translateY(-8px);
   background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 6px 18px gold
+  box-shadow: 0 6px 18px gold;
 }
 .service-card h2 {
   margin: 15px 0 10px;
@@ -181,6 +180,8 @@ body {
   color: black;
   font-size: 16px;
 }
+
+
 /* ===== Testimonials Section ===== */
 .testimonials-section {
   margin-top: 50px;
@@ -197,7 +198,7 @@ body {
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   border-radius: 12px;
   padding: 40px;
-  width: 500px;
+  width: 480px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   backdrop-filter: blur(6px);
@@ -263,15 +264,15 @@ body {
   width: 100%;
   padding: 12px;
   margin-bottom: 15px;
-  border: 1px solid #ddd;
+  border: 1px solid rgb(56, 103, 135);
   border-radius: 8px;
   transition: all 0.3s ease;
   box-sizing: border-box;
 }
 
 .auth-input:focus {
-  border-color: #0072ff;
-  box-shadow: 0 0 5px rgba(0, 114, 255, 0.5);
+  border-color:#2c5364;
+  box-shadow: 0 0 5px rgba(48, 90, 142, 0.5);
   outline: none;
 }
 
@@ -281,6 +282,7 @@ body {
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   border: none;
   color: #fff;
+  
   font-size: 16px;
   border-radius: 8px;
   cursor: pointer;
@@ -298,6 +300,7 @@ body {
 .auth-btn-secondary {
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   color: rgb(247, 245, 245);
+  margin-top: 8px;
 }
 
 .auth-btn-secondary:hover {
@@ -803,7 +806,7 @@ background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   margin-top: 25px;
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   border: none;
-  color: gold;
+  color: white;
   padding: 14px 26px;
   border-radius: 10px;
   font-size: 1.1rem;
@@ -813,7 +816,8 @@ background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
 }
 
 .clear-btn:hover {
- background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+ background: gold;
+ color:black;
   transform: translateY(-8px);
   box-shadow: 0 6px 18px gold
 }
@@ -882,4 +886,172 @@ background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   color: #0f2027;
   box-shadow: 0 6px 12px rgba(255, 215, 0, 0.9);
 }
+/* --- Main Dashboard Container --- */
+/* --- Main Dashboard Container --- */
+.admin-dashboard {
+    padding: 2rem 3rem;
+    max-width: 1400px;
+    margin: 2rem auto;
+    background: rgba(15, 32, 39, 0.8); /* Semi-transparent dark background */
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
 
+/* --- Headings --- */
+.admin-dashboard h1 {
+    margin-bottom: 1.5rem;
+    color: gold;
+    text-align: center;
+    font-size: 2.5em;
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+}
+
+.admin-dashboard h2 {
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    color: gold;
+    border-bottom: 2px solid #5a7a8a;
+    padding-bottom: 0.75rem;
+    font-size: 1.8em;
+    letter-spacing: 1px;
+}
+
+/* --- Enhanced Table Styling --- */
+table {
+    width: 100%;
+    border-collapse: separate; /* Required for border-radius on rows */
+    border-spacing: 0;
+    margin-top: 1.5rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    background: transparent;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* --- Table Header --- */
+th {
+    background: linear-gradient(135deg, #2c5364, #203a43);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    color: gold;
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+/* --- Table Cells & Rows --- */
+th, td {
+    padding: 16px 20px; /* Increased padding */
+    text-align: left;
+    border-bottom: 1px solid rgba(221, 221, 221, 0.1);
+    color: white;
+    vertical-align: middle;
+}
+
+tbody tr {
+    background-color: rgba(44, 83, 100, 0.5);
+    transition: transform 0.2s ease-out, background-color 0.2s ease-out, box-shadow 0.2s ease-out;
+    border-left: 4px solid transparent; /* Placeholder for hover effect */
+}
+
+tbody tr:hover {
+    background-color: rgba(54, 93, 110, 0.8);
+    transform: scale(1.02); /* "Lift" effect on hover */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border-left: 4px solid gold; /* Highlight bar on hover */
+    cursor: pointer;
+}
+
+/* --- Action Buttons Container --- */
+.admin-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: flex-start;
+}
+
+/* --- Modern Glassmorphism Buttons --- */
+.edit-btn, .delete-btn, .back-home-btn {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 9px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    flex-shrink: 0;
+}
+
+.edit-btn:hover {
+    background: gold; /* Gold */
+    color: #0f2027;
+    box-shadow: 0 0 15px gold;
+    border-color:gold;
+}
+
+.delete-btn:hover {
+    background:red;
+    color: white;
+    box-shadow: 0 0 15px red;
+    border-color: red
+}
+
+/* --- Back to Home Button --- */
+.back-home-btn {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.back-home-btn:hover {
+    background: gold;
+    color:black;
+    box-shadow: 0 0 15px gold;
+}
+
+
+/* --- Status Input Field --- */
+.status-input {
+    background-color: rgba(15, 32, 39, 0.9);
+    color: white;
+    border: 1px solid gold;
+    border-radius: 6px;
+    padding: 8px 12px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: box-shadow 0.2s ease;
+}
+
+.status-input:focus {
+    outline: none;
+    box-shadow: 0 0 10px gold;
+}
+/* --- Headings --- */
+.admin-dashboard h1 {
+    color: gold; /* This makes the main title gold */
+    
+}
+
+.admin-dashboard h2 {
+    color: gold; /* This makes the subtitles gold */
+}
+
+/* --- Table Header --- */
+th {
+    color: gold; /* This makes the table headers gold */
+    
+}

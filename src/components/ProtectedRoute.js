@@ -1,26 +1,24 @@
-// ✅ Updated ProtectedRoute.js
-import React, { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../context/firebase";
+// src/components/ProtectedRoute.js
+
+import React, { useContext } from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
+import { BookingContext } from '../context/BookingContext'; // Use the context
 
 const ProtectedRoute = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { user, loading } = useContext(BookingContext);
+  const location = useLocation();
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-    });
-    return unsubscribe;
-  }, []);
+  if (loading) {
+    return <div>Loading...</div>; // Wait for the user state to be determined
+  }
 
-  if (loading) return <p>Loading...</p>;
+  // If loading is done and there is no user, redirect to login
+  if (!user) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
 
-  if (user) return children;
-
-  return <Navigate to="/signup" replace />;
+  // If a user is logged in, show the protected content
+  return children;
 };
 
 export default ProtectedRoute;
