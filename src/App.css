@@ -187,49 +187,82 @@ body {
   margin-top: 50px;
   text-align: center;
 }
+
 .testimonials-grid {
   display: flex;
   justify-content: center;
-  gap: 50px;
+  gap: 40px;
   flex-wrap: wrap;
   margin-top: 30px;
 }
+
 .testimonial-card {
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   border-radius: 12px;
-  padding: 40px;
-  width: 480px;
+  padding: 25px;
+  width: 450px;            /* ✅ default for laptops/desktops */
+  min-height: 220px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   backdrop-filter: blur(6px);
+  text-align: left;
 }
+
 .testimonial-card:hover {
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   transform: translateY(-8px);
-  box-shadow: 0 6px 18px gold
+  box-shadow: 0 6px 18px gold;
 }
+
 .quote {
   font-weight: bold;
   color: #fffbea;
+  font-size: 1rem;
+  line-height: 1.5;
 }
+
 .customer-info {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-top: 15px;
 }
+
 .customer-info img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  object-fit: cover;
 }
+
 .customer-info h4 {
   margin: 0;
   color: #ffd700;
+  font-size: 1rem;
 }
+
 .stars {
   color: gold;
+  margin-top: 5px;
 }
+
+/* ✅ Smaller width ONLY on mobiles & small devices */
+@media (max-width: 768px) {
+  .testimonial-card {
+    width: 240px;          /* smaller for tablets & mobiles */
+    min-height: 200px;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .testimonial-card {
+    width: 100%;           /* full width on very small screens */
+    max-width: 220px;
+    padding: 15px;
+  }
+}
+
+
 /* ===== Auth Pages ===== */
 .auth-page {
   display: flex;
@@ -1175,4 +1208,151 @@ table th, table td {
   border-bottom: 1px solid gold;
   padding-bottom: 5px;
 }
+/* ========================= */
+/* ✅ Extra Responsive Rules */
+/* ========================= */
 
+/* --- Small Tablets & Large Mobiles (max-width: 768px) --- */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: row;
+    padding: 10px;
+  }
+
+  .nav-right {
+    gap: 6px;
+  }
+
+  .hero-section {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .hero-text {
+    font-size: 16px;
+    line-height: 1.6;
+    padding: 0 10px;
+  }
+
+  .services-grid, 
+  .testimonials-grid,
+  .mani-grid,
+  .workers-grid,
+  .guys-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .service-card,
+  .testimonial-card,
+  .mani-box,
+  .worker-card,
+  .guys-card {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .activity-card {
+    width: 100%;
+    padding: 20px;
+  }
+
+  table th, table td {
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+
+  .dashboard-main-heading {
+    font-size: 1.6rem;
+  }
+  .dashboard-sub-heading {
+    font-size: 1rem;
+  }
+}
+
+/* --- Mobiles (max-width: 480px) --- */
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1rem;
+  }
+
+  .nav-button {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+
+  .hero-section h1 {
+    font-size: 1.4rem;
+  }
+
+  .hero-text {
+    font-size: 0.9rem;
+  }
+
+  .service-card h2,
+  .testimonial-card h3,
+  .mani-box h3,
+  .worker-card h3,
+  .guys-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .service-card p,
+  .testimonial-card p,
+  .mani-box p,
+  .worker-card p,
+  .guys-card p {
+    font-size: 0.9rem;
+  }
+
+  .workers-title {
+    font-size: 2rem;
+  }
+
+  .category-title {
+    font-size: 1.3rem;
+  }
+
+  table {
+    font-size: 0.8rem;
+  }
+
+  .search-input {
+    width: 90%;
+    font-size: 0.9rem;
+  }
+
+  .clear-btn, .edit-btn, .delete-btn, .back-home-btn {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+}
+
+/* --- Large Screens (above 1440px) --- */
+@media (min-width: 1440px) {
+  .main-content, 
+  .activity-container, 
+  .admin-dashboard, 
+  .workers-container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 40px;
+  }
+
+  .hero-text {
+    font-size: 20px;
+  }
+
+  .service-card, 
+  .testimonial-card, 
+  .mani-box, 
+  .worker-card, 
+  .guys-card {
+    max-width: 500px;
+  }
+
+  .dashboard-main-heading {
+    font-size: 2.5rem;
+  }
+}
