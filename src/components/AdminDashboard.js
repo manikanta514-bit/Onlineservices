@@ -1,46 +1,55 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { db } from '../context/firebase'; 
-import { collection, getDocs, doc, deleteDoc, updateDoc } from 'firebase/firestore';
+import { collection, onSnapshot, doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
+import { BookingContext } from '../context/BookingContext';
 
 const AdminDashboard = () => {
+    const { bookings: userBookings } = useContext(BookingContext); // listen to BookingContext for real-time updates
     const [users, setUsers] = useState([]);
     const [bookings, setBookings] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
-    // --- State for non-blocking confirmation dialogs ---
     const [editingBooking, setEditingBooking] = useState(null);
     const [newStatus, setNewStatus] = useState("");
 
+    // Fetch users once
     useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                // Fetch all user documents from the 'users' collection
-                const usersSnapshot = await getDocs(collection(db, "users"));
-                setUsers(usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-
-                // Fetch all booking documents from the TOP-LEVEL 'bookings' collection
-                const bookingsSnapshot = await getDocs(collection(db, "bookings"));
-                setBookings(bookingsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-
-            } catch (error) {
-                console.error("Error fetching admin data: ", error);
-            }
-            setLoading(false);
-        };
-
-        fetchData();
+        const usersRef = collection(db, "users");
+        const unsubscribe = onSnapshot(usersRef, (snapshot) => {
+            setUsers(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+        }, (error) => {
+            console.error("Error fetching users: ", error);
+        });
+        return () => unsubscribe();
     }, []);
 
+    // Real-time bookings listener
+    useEffect(() => {
+        setLoading(true);
+        const bookingsRef = collection(db, "bookings");
+        const unsubscribe = onSnapshot(bookingsRef, (snapshot) => {
+            setBookings(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+            setLoading(false);
+        }, (error) => {
+            console.error("Error fetching bookings: ", error);
+            setLoading(false);
+        });
+        return () => unsubscribe();
+    }, []);
+
+    // Keep bookings in sync with BookingContext
+    useEffect(() => {
+        setBookings(userBookings);
+    }, [userBookings]);
+
     const handleDeleteBooking = async (bookingId) => {
-        // Using a standard confirm dialog for simplicity, but a custom modal is better
         if (window.confirm("Are you sure you want to permanently delete this booking?")) {
             try {
                 await deleteDoc(doc(db, "bookings", bookingId));
-                setBookings(bookings.filter(b => b.id !== bookingId));
+                setBookings(prev => prev.filter(b => b.id !== bookingId)); // local update
             } catch (error) {
                 console.error("Error deleting booking: ", error);
             }
@@ -49,7 +58,7 @@ const AdminDashboard = () => {
 
     const handleEditClick = (booking) => {
         setEditingBooking(booking);
-        setNewStatus(booking.status); 
+        setNewStatus(booking.status || "Pending"); 
     };
 
     const handleUpdateStatus = async () => {
@@ -58,16 +67,12 @@ const AdminDashboard = () => {
         try {
             const bookingRef = doc(db, "bookings", editingBooking.id);
             await updateDoc(bookingRef, { status: newStatus });
-            setBookings(bookings.map(b => b.id === editingBooking.id ? { ...b, status: newStatus } : b));
-        } catch (error) {
-            console.error("Error updating booking status: ", error);
-        } finally {
-            // Reset editing state
             setEditingBooking(null);
             setNewStatus("");
+        } catch (error) {
+            console.error("Error updating booking status: ", error);
         }
     };
-
 
     if (loading) {
         return <h1>Loading Dashboard...</h1>;
@@ -109,7 +114,7 @@ const AdminDashboard = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {bookings.map(booking => (
+                    {bookings.length > 0 ? bookings.map(booking => (
                         <tr key={booking.id}>
                             <td>{booking.id}</td>
                             <td>{booking.userEmail}</td>
@@ -123,14 +128,9 @@ const AdminDashboard = () => {
                                         className="status-input"
                                     />
                                 ) : (
-                                    booking.status
+                                    booking.status || "Pending"
                                 )}
                             </td>
-                            {/* CORRECTED PART: 
-                              The <td> itself is the table cell.
-                              Inside it, we create a <div> with the class "admin-actions".
-                              This div becomes the flex container for the buttons, allowing alignment.
-                            */}
                             <td>
                                 <div className="admin-actions">
                                     {editingBooking && editingBooking.id === booking.id ? (
@@ -147,9 +147,16 @@ const AdminDashboard = () => {
                                 </div>
                             </td>
                         </tr>
-                    ))}
+                    )) : (
+                        <tr>
+                            <td colSpan={5} style={{ textAlign: "center", fontStyle: "italic" }}>
+                                No bookings available.
+                            </td>
+                        </tr>
+                    )}
                 </tbody>
             </table>
+
             <div style={{ display: "flex", justifyContent: "center", marginTop: "30px" }}>
                 <button className="back-home-btn" onClick={() => navigate("/")}>
                     Back to Home
