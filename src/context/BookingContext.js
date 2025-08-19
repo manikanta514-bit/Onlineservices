@@ -1,10 +1,23 @@
-// BookingContext.js
 import React, { createContext, useState, useEffect, useCallback } from "react";
 import { db, auth } from "./firebase";
-import {collection,setDoc,onSnapshot,  query,orderBy,serverTimestamp,getDocs,writeBatch,doc,where,updateDoc,deleteDoc,getDoc,} from "firebase/firestore";
+import {
+  collection,
+  setDoc,
+  onSnapshot,
+  query,
+  orderBy,
+  serverTimestamp,
+  getDocs,
+  writeBatch,
+  doc,
+  where,
+  updateDoc,
+  deleteDoc,
+  getDoc,
+} from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 
-export const BookingContext = createContext(); 
+export const BookingContext = createContext();
 
 export const BookingProvider = ({ children }) => {
   const [bookings, setBookings] = useState([]);
@@ -13,6 +26,7 @@ export const BookingProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedArea, setSelectedArea] = useState("");
+
   // 🔹 Auth listener
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -25,6 +39,7 @@ export const BookingProvider = ({ children }) => {
     });
     return () => unsubscribe();
   }, []);
+
   // 🔹 Fetch user profile
   useEffect(() => {
     if (!user) return;
@@ -39,6 +54,7 @@ export const BookingProvider = ({ children }) => {
     );
     return () => unsubscribeProfile();
   }, [user]);
+
   // 🔹 Fetch user bookings
   useEffect(() => {
     if (!user) {
@@ -53,10 +69,21 @@ export const BookingProvider = ({ children }) => {
     const unsubscribeBookings = onSnapshot(
       bookingsQuery,
       (snapshot) => {
-        const userBookings = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        const userBookings = snapshot.docs.map((doc) => {
+          const data = doc.data();
+
+          // ✅ Ensure contractorDetails always exists
+          const contractorDetails = {
+            id: (data.contractorDetails?.id || data.contractorId || `contractor-${doc.id}`),
+            name: (data.contractorDetails?.name || data.contractorName || "Unknown Contractor"),
+          };
+
+          return {
+            id: doc.id,
+            ...data,
+            contractorDetails,
+          };
+        });
         setBookings(userBookings);
         setLoading(false);
       },
@@ -67,61 +94,66 @@ export const BookingProvider = ({ children }) => {
     );
     return () => unsubscribeBookings();
   }, [user]);
-  // ✅ Add booking with SAME ID in both collections
+
+  // ✅ Add booking with guaranteed contractorDetails
   const addBooking = useCallback(
     async (bookingData) => {
       if (!user) return;
       try {
-        const bookingId = doc(collection(db, "bookings")).id; // generate ID
+        const bookingId = doc(collection(db, "bookings")).id;
+
+        const contractorId = bookingData.contractorId || `contractor-${Date.now()}`;
+        const contractorDetails = {
+          id: contractorId,
+          name: bookingData.contractorName || "Unknown Contractor",
+        };
+
         const newBooking = {
           ...bookingData,
           userId: user.uid,
           username: userProfile?.name || "",
+          contractorId: contractorDetails.id,
+          contractorName: contractorDetails.name,
+          contractorDetails,
           status: "Pending",
           createdAt: serverTimestamp(),
         };
-        // Save to top-level and user subcollection with SAME ID
+
         await setDoc(doc(db, "bookings", bookingId), newBooking);
-        await setDoc(
-          doc(db, "users", user.uid, "bookings", bookingId),
-          newBooking
-        );
+        await setDoc(doc(db, "users", user.uid, "bookings", bookingId), newBooking);
       } catch (error) {
         console.error("Error adding booking:", error);
       }
     },
     [user, userProfile]
   );
-  // ✅ Update booking status safely
+
+  // ✅ Update booking status
   const updateBookingStatus = useCallback(async (bookingId, userId, newStatus) => {
     try {
       const bookingRef = doc(db, "bookings", bookingId);
       const userBookingRef = doc(db, "users", userId, "bookings", bookingId);
-      // 1️⃣ Update top-level booking
+
       await updateDoc(bookingRef, { status: newStatus });
-      // 2️⃣ Check if user booking exists
       const userBookingSnap = await getDoc(userBookingRef);
       if (userBookingSnap.exists()) {
-        // Update existing document
         await updateDoc(userBookingRef, { status: newStatus });
       } else {
-        // If it doesn't exist, create it with top-level booking data + new status
         const topBookingSnap = await getDoc(bookingRef);
         if (topBookingSnap.exists()) {
           const data = topBookingSnap.data();
           await setDoc(userBookingRef, { ...data, status: newStatus });
         }
       }
-      // 3️⃣ Optimistic UI update
+
       setBookings((prev) =>
-        prev.map((b) =>
-          b.id === bookingId ? { ...b, status: newStatus } : b
-        )
+        prev.map((b) => (b.id === bookingId ? { ...b, status: newStatus } : b))
       );
     } catch (error) {
       console.error("Error updating booking status:", error);
     }
   }, []);
+
   // ✅ Delete single booking
   const deleteBooking = useCallback(async (bookingId, userId) => {
     try {
@@ -132,7 +164,8 @@ export const BookingProvider = ({ children }) => {
       console.error("Error deleting booking:", error);
     }
   }, []);
-  // ✅ Clear all bookings of a user
+
+  // ✅ Clear all bookings
   const clearBookings = useCallback(async () => {
     if (!user) return;
     try {
@@ -156,7 +189,8 @@ export const BookingProvider = ({ children }) => {
       console.error("Error clearing bookings:", error);
     }
   }, [user]);
-  // ✅ Admin: Update user role
+
+  // ✅ Update user role
   const updateUserRole = useCallback(async (userId, newRole) => {
     try {
       const userRef = doc(db, "users", userId);
@@ -171,9 +205,25 @@ export const BookingProvider = ({ children }) => {
       console.error("❌ Error updating user role:", error);
     }
   }, [userProfile]);
+
   return (
     <BookingContext.Provider
-      value={{user,userProfile, bookings,addBooking,updateBookingStatus,deleteBooking,clearBookings,updateUserRole,loading,selectedCity,setSelectedCity,selectedArea,setSelectedArea, }}>
+      value={{
+        user,
+        userProfile,
+        bookings,
+        addBooking,
+        updateBookingStatus,
+        deleteBooking,
+        clearBookings,
+        updateUserRole,
+        loading,
+        selectedCity,
+        setSelectedCity,
+        selectedArea,
+        setSelectedArea,
+      }}
+    >
       {children}
     </BookingContext.Provider>
   );

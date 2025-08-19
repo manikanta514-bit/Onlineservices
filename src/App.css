@@ -1241,4 +1241,69 @@ table th, table td {
   background-color: red;
   color: white;
 }
+/* Contractor Card hover effect */
+.contractor-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.contractor-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Contractor Image hover */
+.contractor-img {
+  border: 2px solid #fbbf24; /* golden border */
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.contractor-img:hover {
+  transform: scale(1.05);
+  border-color: #f59e0b;
+}
+
+/* Reviews Scroll Styling */
+.review-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #f59e0b #f1f1f1;
+}
+.review-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.review-scroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+.review-scroll::-webkit-scrollbar-thumb {
+  background-color: #f59e0b;
+  border-radius: 3px;
+}
+
+/* Section Titles */
+.section-title {
+  border-bottom: 2px solid #fcd34d; /* golden underline */
+  display: inline-block;
+  padding-bottom: 2px;
+}
+
+/* Back Button Hover */
+.back-btn {
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.back-btn:hover {
+  background-color: gold;
+  transform: scale(1.05);
+}
+
+/* ReactCompareImage Handle Styling */
+.rci-handle {
+  border: 2px solid #f59e0b;
+  background-color: #fcd34d;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Optional: make container background subtle */
+body {
+  background-color: #fef3c7; /* light golden */
+  font-family: 'Inter', sans-serif;
+}
+
 

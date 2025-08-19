@@ -22,6 +22,8 @@ import UserDashboard from './components/UserDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminDashboard from './components/AdminDashboard';
 import AdminProtectedRoute from './components/AdminProtectedRoute';
+import ContractorPage from './components/ContractorPage';
+import ContractorList from './components/ContractorList';
 
 function App() {
   return (
@@ -42,6 +44,9 @@ function App() {
         <Route path="/contractors" element={<Contractors />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+         <Route path="/" element={<ContractorList />} />
+        <Route path="/contractor/:id" element={<ContractorPage />} />
+        
 
         {/* Protected Routes */}
         <Route

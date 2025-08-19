@@ -3,7 +3,8 @@ import React, { useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FaWrench } from "react-icons/fa";
 import { BookingContext } from "../context/BookingContext";
-import { workersData } from "./Contractors"; // same as Cleaning.js
+import workersData from "./workersData";
+ // same as Cleaning.js
 
 const Repairs = () => {
   const navigate = useNavigate();
