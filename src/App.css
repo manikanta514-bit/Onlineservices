@@ -14,8 +14,8 @@ background: linear-gradient(135deg, #ffffff, #ffffff);
 /* ===== Header ===== */
 .main-header {
   /*background: linear-gradient(135deg, #00c6ff, #0072ff, #ff61d2);*/
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  background: linear-gradient(135deg, #ffffff, #ffffff);
+  background: linear-gradient(135deg, #61dafb, #203a43, #2c5364);
+  background: linear-gradient(135deg, #61dafb, #61dafb);
 
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   position: sticky;
@@ -56,8 +56,8 @@ background: linear-gradient(135deg, #ffffff, #ffffff);
   cursor: pointer;
   transition: transform 0.2s ease, background 0.3s ease;
   color: rgb(0, 0, 0);
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  background: linear-gradient(135deg,#282c34, #282c34);
+  background: linear-gradient(135deg, #61dafb, #61dafb, #61dafb);
+  background: linear-gradient(135deg,#61dafb, #61dafb);
    background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(12px);
   font-family: 'Times New Roman', Times, serif;
