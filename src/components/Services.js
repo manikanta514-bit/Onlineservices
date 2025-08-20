@@ -44,7 +44,7 @@ const Services = () => {
         </h2>
       )}
 
-      <div style={{ textAlign: "center", maxWidth: "800px", margin: "20px auto", color: "white" }}>
+      <div style={{ textAlign: "center", maxWidth: "800px", margin: "20px auto", color: "black" }}>
         <p>
           At <b>Online Services</b>, we provide fast, reliable, and affordable
           home & office solutions — from cleaning and repairs to expert
