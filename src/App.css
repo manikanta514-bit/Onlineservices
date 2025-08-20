@@ -33,6 +33,7 @@ background: linear-gradient(135deg, #ffffff, #ffffff);
 }
 .logo {
   color: rgb(255, 255, 255);
+  font-style: bold;
   font-size: 30px;
   font-weight: bold;
   text-transform: uppercase;
