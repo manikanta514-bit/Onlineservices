@@ -30,6 +30,8 @@ background: linear-gradient(135deg, #ffffff, #ffffff);
   justify-content: space-between;
   width: 90%;
   margin: 0 auto;
+  color: white;
+
 }
 .logo {
   color: black;
@@ -55,15 +57,15 @@ background: linear-gradient(135deg, #ffffff, #ffffff);
   font-size: 16px;
   cursor: pointer;
   transition: transform 0.2s ease, background 0.3s ease;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   background: linear-gradient(135deg, #61dafb, #61dafb, #61dafb);
   background: linear-gradient(135deg,#61dafb, #61dafb);
-   background: rgba(255, 255, 255, 0.15);
+   background: #61dafb;
   backdrop-filter: blur(12px);
   font-family: 'Times New Roman', Times, serif;
 }
 .nav-button:hover {
-  color:black;
+  color:rgb(255, 255, 255);
   transform: scale(1.05);
     box-shadow: 0 6px 18px #6d6d6d
 }
@@ -80,7 +82,7 @@ background: linear-gradient(135deg, #ffffff, #ffffff);
   left: 10px;
   width: 200px;
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  background: linear-gradient(135deg, #282c34, #282c34);
+  background: linear-gradient(135deg, #61dafb, #61dafb);
 
   box-shadow: 0 6px 14px rgba(125, 125, 125, 0.797);
   border-radius: 8px;
@@ -91,7 +93,7 @@ background: linear-gradient(135deg, #ffffff, #ffffff);
 }
 .hamburger-menu a {
   padding: 14px 20px;
-  color: black;
+  color: rgb(255, 255, 255);
   font-weight: 500;
   font-size: 16px;
   text-decoration: none;
