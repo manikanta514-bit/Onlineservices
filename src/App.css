@@ -503,8 +503,8 @@ background: linear-gradient(135deg, #ff8c42, #ffb347);
   justify-items: center;
 }
 .guys-card {
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-       background: linear-gradient(135deg, #ff0000, #055de1);
+  background: linear-gradient(135deg, #ffffff, #ffffff, #ffffff);
+       background: linear-gradient(135deg, #ffffff, #055de1);
   border-radius: 18px;
   overflow: hidden;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
