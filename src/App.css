@@ -17,7 +17,7 @@ background: linear-gradient(135deg, #ffffff, #ffffff);
   background: linear-gradient(135deg, #61dafb, #203a43, #2c5364);
   background: linear-gradient(135deg, #61dafb, #61dafb);*/
 
-  background-color: #2b6cb0; /* bg-blue-800 */
+  background-color: #007bff; /* bg-blue-800 */
   padding: 1rem;            /* p-4 (assuming default Tailwind spacing scale where 1 unit = 0.25rem, so 4 units = 1rem) */
   color: #ffffff;           /* text-white */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06); /* shadow-md */
