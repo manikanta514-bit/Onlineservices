@@ -489,7 +489,7 @@ background: linear-gradient(135deg, #ffffff, #ffffff);
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
        background: linear-gradient(135deg, #ff8c42, #ffb347);
   min-height: 100vh;
-  color:rgb(244, 243, 238);
+  color:rgb(0, 0, 0);
    font-family: 'Times New Roman', Times, serif;
 }
 .guys-detail h1{
