@@ -44,7 +44,7 @@ const UserDashboard = () => {
           <div key={item.id} className="activity-card">
             <h3>
               Booking No: {idx + 1}
-              <hr style={{ borderColor: "gold", borderWidth: "1px", margin: "5px 0 10px" }}/>
+              <hr style={{ borderColor: "black", borderWidth: "1px", margin: "5px 0 10px" }}/>
             </h3>
 
             {item.username && <p><b>Name:</b> {item.username}</p>}
@@ -87,7 +87,7 @@ const UserDashboard = () => {
               </div>
             )}
 
-            <hr style={{ borderColor: "gold", borderWidth: "1px", margin: "10px 0" }} />
+            <hr style={{ borderColor: "black", borderWidth: "1px", margin: "10px 0" }} />
 
             <div style={{ textAlign: "center", color: "gold", marginTop: "10px", fontWeight: "bold" }}>
               <h3>Service Booked</h3>
