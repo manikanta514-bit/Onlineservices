@@ -858,7 +858,7 @@ body {
 .activity-card h3 {
   font-size: 1.4rem;
   margin-bottom: 10px;
-  color: #FB8500; /* UT orange */
+  color: #ffffff; /* UT orange */
 }
 
 /* Card Info */
@@ -869,7 +869,7 @@ body {
 }
 
 .activity-card p b {
-  color: #FFB703; /* Selective yellow */
+  color: #ffffff; /* Selective yellow */
 }
 
 /* Clear Button */
