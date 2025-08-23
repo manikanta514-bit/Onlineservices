@@ -177,7 +177,7 @@ body {
 }
 .service-card p {
   font-size: 16px;
-  color: #ffffff; /* Prussian blue */
+  color: #ffffff; 
 }
 .service-list {
   padding-left: 20px;
@@ -185,7 +185,7 @@ body {
 }
 .service-list li {
   margin: 15px 0;
-  color: #023047; /* Prussian blue */
+  color: #ffffff; 
   font-size: 16px;
 }
 
