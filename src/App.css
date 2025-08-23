@@ -531,7 +531,7 @@ body {
 
 .back-btn:hover {
   background: #023047; /* Prussian blue on hover */
-  color: #FFB703; /* Selective yellow */
+  color: #ffffff; /* Selective yellow */
   box-shadow: 0 6px 12px rgba(255, 183, 3, 0.7);
   transform: translateY(-2px);
 }
