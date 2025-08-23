@@ -818,7 +818,7 @@ body {
 .activity-container {
   padding: 50px 20px;
   min-height: 100vh;
-  background: linear-gradient(135deg, #FFB703, #FB8500); /* Selective yellow to UT orange gradient */
+  background: linear-gradient(135deg, #219EBC, #8ECAE6); /* Selective yellow to UT orange gradient */
   color: #023047; /* Prussian blue */
   text-align: center;
   font-family: 'Times New Roman', Times, serif;
