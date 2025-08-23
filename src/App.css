@@ -453,7 +453,7 @@ body {
 .mani-box:hover {
   background:  #13a2c5;/* Selective yellow on hover */
   transform: translateY(-8px);
-  box-shadow: 0 6px 18px #037d9b97; /* UT orange shadow */
+  box-shadow: 0 6px 18px #00000081; /* UT orange shadow */
 }
 .mani-box:active {
   transform: scale(0.98);
