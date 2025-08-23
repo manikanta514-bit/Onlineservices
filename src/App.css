@@ -168,7 +168,7 @@ body {
 .service-card:hover {
   transform: translateY(-8px);
   background: rgba(33, 158, 188, 0.6); /* Semi-transparent Blue Green on hover */
-  box-shadow: 0 6px 18px #FFB703; /* Selective yellow shadow */
+  box-shadow: 0 6px 18px #023047b5; /* Selective yellow shadow */
 }
 .service-card h2 {
   margin: 15px 0 10px;
