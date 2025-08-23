@@ -219,7 +219,7 @@ body {
 
 .testimonial-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 6px 18px #13a2c5; /* Selective yellow shadow */
+  box-shadow: 0 6px 18px #023047b5; /* Selective yellow shadow */
 }
 
 .quote {
