@@ -17,7 +17,7 @@ const Help = () => {
       <h1 
         style={{
           textAlign: "center",
-          color: "gold",
+          color: "white",
           marginBottom: "20px",
           fontSize: "36px"
         }}
@@ -25,15 +25,15 @@ const Help = () => {
         Help & Support
       </h1>
 
-      <p style={{ fontSize: "18px", marginBottom: "30px", textAlign: "center" }}>
+      <p className='Help' style={{ fontSize: "18px", marginBottom: "30px", textAlign: "center" }}>
         Need assistance? We’re here to make your experience with 
-        <strong style={{ color: "gold" }}> Onlineservices</strong> 
+        <strong style={{ color: "white" }}> Onlineservices</strong> 
         simple and stress‑free. Find answers to common questions below, or reach out to us directly.
       </p>
 
-      <h2 style={{ color: "gold", marginTop: "30px" }}>Frequently Asked Questions</h2>
+      <h2 style={{ color: "white", marginTop: "30px" }}>Frequently Asked Questions</h2>
 
-      <h3 style={{ color: "gold" }}> Booking & Scheduling</h3>
+      <h3 style={{ color: "white" }}> Booking & Scheduling</h3>
       <ul style={{ marginLeft: "20px" }}>
         <li><strong>How do I book a service?</strong>  
           You can book directly on our website by selecting your service and time slot.
@@ -43,7 +43,7 @@ const Help = () => {
         </li>
       </ul>
 
-      <h3 style={{ color: "gold" }}> Payments & Pricing</h3>
+      <h3 style={{ color: "white" }}> Payments & Pricing</h3>
       <ul style={{ marginLeft: "20px" }}>
         <li><strong>What payment methods do you accept?</strong>  
           We accept UPI, debit/credit cards, and cash on delivery.
@@ -53,7 +53,7 @@ const Help = () => {
         </li>
       </ul>
 
-      <h3 style={{ color: "gold" }}> Services</h3>
+      <h3 style={{ color: "white" }}> Services</h3>
       <ul style={{ marginLeft: "20px" }}>
         <li><strong>Do you use eco‑friendly cleaning products?</strong>  
           Yes! We use safe, eco‑friendly, and high‑quality products for all cleaning services.
@@ -63,14 +63,14 @@ const Help = () => {
         </li>
       </ul>
 
-      <h2 style={{ color: "gold", marginTop: "30px" }}>Service Guidelines</h2>
+      <h2 style={{ color: "white", marginTop: "30px" }}>Service Guidelines</h2>
       <ul style={{ marginLeft: "20px" }}>
         <li>Please ensure someone is present at the location during service.</li>
         <li>For cleaning, kindly remove fragile items in advance.</li>
         <li>For installations, keep the appliance or product ready before our technician arrives.</li>
       </ul>
 
-      <h2 style={{ color: "gold", marginTop: "30px" }}>Troubleshooting</h2>
+      <h2 style={{ color: "white", marginTop: "30px" }}>Troubleshooting</h2>
       <ul style={{ marginLeft: "20px" }}>
         <li><strong>Didn’t receive a booking confirmation?</strong>  
           Check your email’s spam folder or contact our support team.
@@ -80,7 +80,7 @@ const Help = () => {
         </li>
       </ul>
 
-      <h2 style={{ color: "gold", marginTop: "30px" }}>Contact Support</h2>
+      <h2 style={{ color: "white", marginTop: "30px" }}>Contact Support</h2>
       <p>
         Still need help? We’re just a call or message away.
       </p>
@@ -89,11 +89,11 @@ const Help = () => {
         <strong>Email:</strong> support@onlineservices.com <br />
       </p>
 
-      <h2 style={{ color: "gold", marginTop: "30px" }}>Feedback & Suggestions</h2>
+      <h2 style={{ color: "white", marginTop: "30px" }}>Feedback & Suggestions</h2>
       <p>
         Your opinion matters! Share your feedback so we can keep improving our services and 
         deliver the best experience every time you choose 
-        <strong style={{ color: "gold" }}> Onlineservices</strong>.
+        <strong style={{ color: "white" }}> Onlineservices</strong>.
       </p>
         <div style={{ display: "flex", justifyContent: "center", marginTop: "30px" }}>
   <button className="back-home-btn" onClick={() => navigate("/")}>Back to Home</button>
