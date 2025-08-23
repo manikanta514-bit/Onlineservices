@@ -451,7 +451,7 @@ body {
   font-family: 'Times New Roman', Times, serif;
 }
 .mani-box:hover {
-  background:  #035266;/* Selective yellow on hover */
+  background:  #13a2c5;/* Selective yellow on hover */
   transform: translateY(-8px);
   box-shadow: 0 6px 18px #FB8500; /* UT orange shadow */
 }
