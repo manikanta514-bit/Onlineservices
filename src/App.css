@@ -1339,3 +1339,8 @@ table th, table td {
   background-color: #FFB703; /* Selective yellow */
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
+
+/*help page text*/
+.Help{
+  color: black;
+}
