@@ -505,7 +505,7 @@ body {
   font-family: 'Times New Roman', Times, serif;
 }
 .guys-card:hover {
-  background: linear-gradient(135deg, #030bff, #ffffff); /* Selective yellow to UT orange gradient on hover */
+  background: linear-gradient(135deg, #13a2c5, #0000008d); /* Selective yellow to UT orange gradient on hover */
   transform: translateY(-8px);
   box-shadow: 0 6px 18px #023047; /* Prussian blue shadow */
 }
