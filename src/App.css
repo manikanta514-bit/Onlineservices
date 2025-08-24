@@ -5,10 +5,7 @@ body {
   /* Using a subtle gradient with the sky blue and blue green from your image */
   background: linear-gradient(135deg, #8ECAE6, #219EBC); 
   color: #023047; /* Prussian blue for general text */
-<<<<<<< HEAD
-=======
   font-family:'Times New Roman', Times, serif
->>>>>>> 0c63579 (thunderguys did this  thunders)
 }
 .main-content {
   padding: 20px;
@@ -1299,11 +1296,10 @@ table th, table td {
   color: white;
 }
 /* Contractor Card hover effect */
-<<<<<<< HEAD
 .contractor-card {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   font-family: 'Times New Roman', Times, serif;
-=======
+}
 .contractor-page-container {
   max-width: 900px;
   margin: 0 auto;
@@ -1312,15 +1308,12 @@ table th, table td {
   font-family: Arial, sans-serif;
   text-align: center;
    font-family: 'Times New Roman', Times, serif;
->>>>>>> 0c63579 (thunderguys did this  thunders)
 }
 
 .contractor-page-container h1 {
   color: gold;
   margin-bottom: 30px;
-}
 
-<<<<<<< HEAD
 /* Contractor Image hover */
 .contractor-img {
   border: 2px solid #FFB703; /* Selective yellow border */
@@ -1373,8 +1366,7 @@ table th, table td {
 
 /*help page text*/
 .Help{
-  color: black;
-=======
+  color: black;}
 /* Image and info section */
 .details-section {
   display: flex;
@@ -1456,5 +1448,5 @@ table th, table td {
   .details-text p {
     font-size: 14px;
   }
->>>>>>> 0c63579 (thunderguys did this  thunders)
+}
 }
