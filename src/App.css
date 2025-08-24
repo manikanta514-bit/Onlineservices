@@ -5,6 +5,10 @@ body {
   /* Using a subtle gradient with the sky blue and blue green from your image */
   background: linear-gradient(135deg, #8ECAE6, #219EBC); 
   color: #023047; /* Prussian blue for general text */
+<<<<<<< HEAD
+=======
+  font-family:'Times New Roman', Times, serif
+>>>>>>> 0c63579 (thunderguys did this  thunders)
 }
 .main-content {
   padding: 20px;
@@ -718,26 +722,40 @@ body {
   }
 
   /* Services Section */
-  .services-grid {
+   .services-grid {
+    display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center; 
     gap: 20px;
     padding: 0 10px;
+    width: 100%; 
+    box-sizing: border-box;
   }
+
   .service-card {
     width: 95%;
     max-width: 420px;
+    height: 370px;
+    margin: 0 auto; 
+    box-sizing: border-box;
   }
-
-  /* Testimonials Section */
+  
   .testimonials-grid {
+    display: flex; 
     flex-direction: column;
     align-items: center;
+    justify-content: center; 
     gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
   }
+
   .testimonial-card {
     width: 95%;
     max-width: 420px;
+    margin: 0 auto; 
+    box-sizing: border-box;
   }
 }
 
@@ -1281,15 +1299,28 @@ table th, table td {
   color: white;
 }
 /* Contractor Card hover effect */
+<<<<<<< HEAD
 .contractor-card {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   font-family: 'Times New Roman', Times, serif;
-}
-.contractor-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+=======
+.contractor-page-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  color: #f4f3ee;
+  font-family: Arial, sans-serif;
+  text-align: center;
+   font-family: 'Times New Roman', Times, serif;
+>>>>>>> 0c63579 (thunderguys did this  thunders)
 }
 
+.contractor-page-container h1 {
+  color: gold;
+  margin-bottom: 30px;
+}
+
+<<<<<<< HEAD
 /* Contractor Image hover */
 .contractor-img {
   border: 2px solid #FFB703; /* Selective yellow border */
@@ -1343,4 +1374,87 @@ table th, table td {
 /*help page text*/
 .Help{
   color: black;
+=======
+/* Image and info section */
+.details-section {
+  display: flex;
+  flex-direction: column; /* info below image */
+  align-items: center;    /* center horizontally */
+  gap: 20px;
+  width: 100%;
+}
+
+
+/* Worker image */
+.worker-img {
+  width: 500px; 
+  height: 460px; 
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  object-fit: cover;          /* fill the box and crop edges */
+  object-position: top center; /* shift visible area to top, cuts bottom watermark */
+}
+
+.details-text {
+  text-align: center;
+  width: 100%;
+  max-width: 800px;
+  color:gold
+}
+
+.details-text p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+
+.reviews-section {
+  margin-top: 40px;
+}
+
+.reviews-section h2 {
+  color: gold;
+  margin-bottom: 20px;
+}
+
+.reviews-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.reviews-section li {
+  margin-bottom: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 12px;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.reviews-section li strong {
+  color: #ffd700;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .worker-img,
+  .details-text {
+    max-width: 95%;
+  }
+
+  .details-text p {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .worker-img,
+  .details-text {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .details-text p {
+    font-size: 14px;
+  }
+>>>>>>> 0c63579 (thunderguys did this  thunders)
 }

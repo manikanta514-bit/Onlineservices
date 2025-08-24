@@ -6,9 +6,6 @@ import { BookingContext } from '../context/BookingContext';
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const { userProfile } = useContext(BookingContext);
-
-console.log("Header is checking the user profile:", userProfile); 
-
     return (
         <header className="main-header">
             <div className="header-content">
@@ -34,7 +31,7 @@ console.log("Header is checking the user profile:", userProfile);
                     
                     {userProfile?.role === 'admin' && (
                         <>
-                         <Link to="/admin" onClick={() => setMenuOpen(false)} style={{ color: 'black', fontWeight: 'bold' }}> Admin Dashboard
+                         <Link to="/admin" onClick={() => setMenuOpen(false)} style={{ color: '#FFD700', fontWeight: 'bold' }}> Admin Dashboard
                          </Link>
                     
                         </>

@@ -3,8 +3,7 @@ import React, { useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { GiDrill } from "react-icons/gi";
 import { BookingContext } from "../context/BookingContext";
-import workersData from "./workersData";
-// <- updated import
+import { workersData } from "./workersData"; 
 
 const Installations = () => {
   const navigate = useNavigate();

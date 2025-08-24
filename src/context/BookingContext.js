@@ -1,3 +1,4 @@
+// BookingContext.js
 import React, { createContext, useState, useEffect, useCallback } from "react";
 import { db, auth } from "./firebase";
 import {
@@ -24,103 +25,115 @@ export const BookingProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
+
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedArea, setSelectedArea] = useState("");
 
-  // 🔹 Auth listener
+  // 🔹 Auth Listener & Firestore Sync (full handling with proper cleanup)
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    let unsubscribeProfile = null;
+    let unsubscribeBookings = null;
+
+    const authUnsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+
+      // 🔹 User logged out
       if (!currentUser) {
+        if (unsubscribeProfile) unsubscribeProfile();
+        if (unsubscribeBookings) unsubscribeBookings();
+
         setUserProfile(null);
         setBookings([]);
         setLoading(false);
+        console.log("🔹 DEBUG: User signed out");
+        return;
       }
+
+      console.log("🔹 DEBUG: User signed in", currentUser.uid);
+
+      // 🔹 Ensure Firestore user document exists
+      try {
+        const userRef = doc(db, "users", currentUser.uid);
+        const userSnap = await getDoc(userRef);
+
+        if (!userSnap.exists()) {
+          await setDoc(userRef, {
+            uid: currentUser.uid,
+            email: currentUser.email || "no-email",
+            role: "user",
+            name: currentUser.displayName || "Anonymous",
+            createdAt: serverTimestamp(),
+          });
+          console.log("✅ Firestore user created for", currentUser.email || currentUser.uid);
+        } else {
+          console.log("ℹ️ Firestore user already exists:", currentUser.uid);
+        }
+      } catch (error) {
+        console.error("❌ ERROR: Failed to sync Auth user to Firestore", error);
+      }
+
+      setLoading(false);
+
+      // 🔹 Listen to user profile
+      const userDocRef = doc(db, "users", currentUser.uid);
+      unsubscribeProfile = onSnapshot(
+        userDocRef,
+        (snapshot) => {
+          setUserProfile(snapshot.exists() ? snapshot.data() : null);
+          console.log("🔹 DEBUG: User profile snapshot received", snapshot.data());
+        },
+        (error) => {
+          console.error("Firestore Error (profile):", error);
+          setUserProfile(null);
+        }
+      );
+
+      // 🔹 Listen to bookings
+      const bookingsQuery = query(
+        collection(db, "users", currentUser.uid, "bookings"),
+        orderBy("createdAt", "asc")
+      );
+      unsubscribeBookings = onSnapshot(
+        bookingsQuery,
+        (snapshot) => {
+          const userBookings = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setBookings(userBookings);
+          console.log("🔹 DEBUG: Bookings snapshot received", userBookings);
+        },
+        (error) => {
+          console.error("Failed to fetch bookings:", error);
+        }
+      );
     });
-    return () => unsubscribe();
+
+    return () => {
+      authUnsubscribe();
+      if (unsubscribeProfile) unsubscribeProfile();
+      if (unsubscribeBookings) unsubscribeBookings();
+    };
   }, []);
 
-  // 🔹 Fetch user profile
-  useEffect(() => {
-    if (!user) return;
-    const userDocRef = doc(db, "users", user.uid);
-    const unsubscribeProfile = onSnapshot(
-      userDocRef,
-      (snapshot) => setUserProfile(snapshot.exists() ? snapshot.data() : null),
-      (error) => {
-        console.error("Firestore Error (profile):", error);
-        setUserProfile(null);
-      }
-    );
-    return () => unsubscribeProfile();
-  }, [user]);
-
-  // 🔹 Fetch user bookings
-  useEffect(() => {
-    if (!user) {
-      setBookings([]);
-      return;
-    }
-    setLoading(true);
-    const bookingsQuery = query(
-      collection(db, "users", user.uid, "bookings"),
-      orderBy("createdAt", "asc")
-    );
-    const unsubscribeBookings = onSnapshot(
-      bookingsQuery,
-      (snapshot) => {
-        const userBookings = snapshot.docs.map((doc) => {
-          const data = doc.data();
-
-          // ✅ Ensure contractorDetails always exists
-          const contractorDetails = {
-            id: (data.contractorDetails?.id || data.contractorId || `contractor-${doc.id}`),
-            name: (data.contractorDetails?.name || data.contractorName || "Unknown Contractor"),
-          };
-
-          return {
-            id: doc.id,
-            ...data,
-            contractorDetails,
-          };
-        });
-        setBookings(userBookings);
-        setLoading(false);
-      },
-      (error) => {
-        console.error("Failed to fetch bookings:", error);
-        setLoading(false);
-      }
-    );
-    return () => unsubscribeBookings();
-  }, [user]);
-
-  // ✅ Add booking with guaranteed contractorDetails
+  // 🔹 Add Booking
   const addBooking = useCallback(
     async (bookingData) => {
-      if (!user) return;
+      if (!user?.uid || !userProfile) return;
       try {
         const bookingId = doc(collection(db, "bookings")).id;
-
-        const contractorId = bookingData.contractorId || `contractor-${Date.now()}`;
-        const contractorDetails = {
-          id: contractorId,
-          name: bookingData.contractorName || "Unknown Contractor",
-        };
-
         const newBooking = {
           ...bookingData,
           userId: user.uid,
-          username: userProfile?.name || "",
-          contractorId: contractorDetails.id,
-          contractorName: contractorDetails.name,
-          contractorDetails,
+          username: userProfile?.name || "Anonymous",
           status: "Pending",
           createdAt: serverTimestamp(),
         };
 
         await setDoc(doc(db, "bookings", bookingId), newBooking);
         await setDoc(doc(db, "users", user.uid, "bookings", bookingId), newBooking);
+
+        console.log("🔹 DEBUG: Booking added", newBooking);
       } catch (error) {
         console.error("Error adding booking:", error);
       }
@@ -128,7 +141,7 @@ export const BookingProvider = ({ children }) => {
     [user, userProfile]
   );
 
-  // ✅ Update booking status
+  // 🔹 Update Booking Status
   const updateBookingStatus = useCallback(async (bookingId, userId, newStatus) => {
     try {
       const bookingRef = doc(db, "bookings", bookingId);
@@ -141,33 +154,35 @@ export const BookingProvider = ({ children }) => {
       } else {
         const topBookingSnap = await getDoc(bookingRef);
         if (topBookingSnap.exists()) {
-          const data = topBookingSnap.data();
-          await setDoc(userBookingRef, { ...data, status: newStatus });
+          await setDoc(userBookingRef, { ...topBookingSnap.data(), status: newStatus });
         }
       }
 
       setBookings((prev) =>
         prev.map((b) => (b.id === bookingId ? { ...b, status: newStatus } : b))
       );
+
+      console.log(`DEBUG: Booking ${bookingId} status updated to ${newStatus}`);
     } catch (error) {
       console.error("Error updating booking status:", error);
     }
   }, []);
 
-  // ✅ Delete single booking
+  // 🔹 Delete Booking
   const deleteBooking = useCallback(async (bookingId, userId) => {
     try {
       await deleteDoc(doc(db, "bookings", bookingId));
       await deleteDoc(doc(db, "users", userId, "bookings", bookingId));
       setBookings((prev) => prev.filter((b) => b.id !== bookingId));
+      console.log(`🔹 DEBUG: Booking ${bookingId} deleted`);
     } catch (error) {
       console.error("Error deleting booking:", error);
     }
   }, []);
 
-  // ✅ Clear all bookings
+  // 🔹 Clear All Bookings
   const clearBookings = useCallback(async () => {
-    if (!user) return;
+    if (!user?.uid) return;
     try {
       const userBookingsRef = collection(db, "users", user.uid, "bookings");
       const userSnapshot = await getDocs(userBookingsRef);
@@ -175,36 +190,37 @@ export const BookingProvider = ({ children }) => {
       userSnapshot.forEach((docSnap) => batch.delete(docSnap.ref));
       await batch.commit();
 
-      const topLevelBookingsQuery = query(
-        collection(db, "bookings"),
-        where("userId", "==", user.uid)
-      );
+      const topLevelBookingsQuery = query(collection(db, "bookings"), where("userId", "==", user.uid));
       const topLevelSnapshot = await getDocs(topLevelBookingsQuery);
       const topLevelBatch = writeBatch(db);
       topLevelSnapshot.forEach((docSnap) => topLevelBatch.delete(docSnap.ref));
       await topLevelBatch.commit();
 
       setBookings([]);
+      console.log("🔹 DEBUG: All bookings cleared for user", user.uid);
     } catch (error) {
       console.error("Error clearing bookings:", error);
     }
   }, [user]);
 
-  // ✅ Update user role
-  const updateUserRole = useCallback(async (userId, newRole) => {
-    try {
-      const userRef = doc(db, "users", userId);
-      await updateDoc(userRef, { role: newRole });
+  // 🔹 Admin: Update User Role
+  const updateUserRole = useCallback(
+    async (userId, newRole) => {
+      try {
+        const userRef = doc(db, "users", userId);
+        await updateDoc(userRef, { role: newRole });
 
-      if (userProfile && userProfile.uid === userId) {
-        setUserProfile((prev) => ({ ...prev, role: newRole }));
+        if (userProfile?.uid === userId) {
+          setUserProfile((prev) => ({ ...prev, role: newRole }));
+        }
+
+        console.log(`DEBUG: Role of ${userId} updated to ${newRole}`);
+      } catch (error) {
+        console.error("Error updating user role:", error);
       }
-
-      console.log(`✅ Role of ${userId} updated to ${newRole}`);
-    } catch (error) {
-      console.error("❌ Error updating user role:", error);
-    }
-  }, [userProfile]);
+    },
+    [userProfile]
+  );
 
   return (
     <BookingContext.Provider

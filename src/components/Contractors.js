@@ -1,30 +1,37 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import workersData from "./workersData";
+import { workersData } from "./workersData"; // make sure path is correct
 
 const Contractors = () => {
   return (
-    <div className="workers-container">
-      <h2>Our Skilled Contractors</h2>
+    <div className="guys-detail">
+      <h1>Our Skilled Contractors</h1>
+      <p>
+        Browse our professional contractors across various categories. Click on a contractor to view more details and reviews.
+      </p>
+
       {Object.entries(workersData).map(([category, workers]) => (
         <div key={category} className="category-section">
-          <h3>{category}</h3>
-          <div className="workers-grid">
-            {workers.map((worker) => (
-              <div key={worker.id} className="worker-card">
-                <img src={worker.img} alt={worker.name} className="worker-img" />
-                <h4>{worker.name}</h4>
-                <p><b>Skill:</b> {worker.skill}</p>
-                <p><b>Experience:</b> {worker.exp}</p>
-                <p><b>Charges:</b> {worker.charges}</p>
-                <p><b>Rating:</b> ⭐ {worker.rating}</p>
-                <p><b>Reviews:</b> {worker.reviews?.slice(0, 2).join(", ")}</p>
+          <h3 style={{ color: "gold", fontSize: "30px", textAlign: "center" }}>
+            {category}
+          </h3>
 
-                {/* Link to ContractorPage */}
-                <Link
-                  to={`/contractor/${worker.id}`}
-                  className="mt-2 px-4 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 inline-block"
-                >
+          <div className="guys-grid">
+            {workers.map((worker) => (
+              <div key={worker.id} className="guys-card">
+                <div className="logo-container">
+                  <img src={worker.img} alt={worker.name} className="service-logo" />
+                </div>
+
+                <div className="card-info" style={{ flexGrow: 1 }}>
+                  <h3>{worker.name}</h3>
+                  <p><b>Skill:</b> {worker.skill}</p>
+                  <p><b>Experience:</b> {worker.exp}</p>
+                  <p className="guys-price"><b>Charges:</b> {worker.charges}</p>
+                  <p><b>Rating:</b> ⭐ {worker.rating} / 5</p>
+                  <p><b>Reviews:</b> {worker.reviews?.length || 0}</p>
+                </div>
+
+                <Link to={`/contractors/${worker.id}`} className="guys-btn">
                   View Details
                 </Link>
               </div>
