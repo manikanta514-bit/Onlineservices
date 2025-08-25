@@ -17,6 +17,8 @@ const ContractorPage = () => {
   return (
     <div className="contractor-page-container">
       <h1>{contractor.name}</h1>
+
+      {/* ✅ Contractor Details Section */}
       <div className="details-section">
         <img
           src={contractor.img}
@@ -25,9 +27,15 @@ const ContractorPage = () => {
         />
 
         <div className="details-text">
-          <p><b>Skill:</b> {contractor.skill}</p>
-          <p><b>Experience:</b> {contractor.exp}</p>
-          <p><b>Charges:</b> {contractor.charges}</p>
+          <p>
+            <b>Skill:</b> {contractor.skill}
+          </p>
+          <p>
+            <b>Experience:</b> {contractor.exp}
+          </p>
+          <p>
+            <b>Charges:</b> {contractor.charges}
+          </p>
           <p>
             <b>Rating:</b>{" "}
             <span style={{ color: "gold" }}>
@@ -38,9 +46,17 @@ const ContractorPage = () => {
       </div>
 
       {/* ✅ Before/After Section */}
-      {contractor.beforeafter && contractor.beforeafter.before && contractor.beforeafter.after ? (
+      {contractor.beforeafter &&
+      contractor.beforeafter.before &&
+      contractor.beforeafter.after ? (
         <div className="before-after-section" style={{ marginTop: "30px" }}>
-          <h2 style={{ color: "gold", textAlign: "center", marginBottom: "15px" }}>
+          <h2
+            style={{
+              color: "gold",
+              textAlign: "center",
+              marginBottom: "15px",
+            }}
+          >
             Before & After Work
           </h2>
           <ReactCompareImage
@@ -51,6 +67,7 @@ const ContractorPage = () => {
         </div>
       ) : null}
 
+      {/* ✅ Reviews Section */}
       <div className="reviews-section">
         <h2>Reviews</h2>
         {contractor.reviews && contractor.reviews.length > 0 ? (
@@ -75,7 +92,13 @@ const ContractorPage = () => {
       </div>
 
       {/* ✅ Back to Contractors */}
-      <div style={{ textAlign: "center", marginTop: "30px",textDecoration:"none" }}>
+      <div
+        style={{
+          textAlign: "center",
+          marginTop: "30px",
+          textDecoration: "none",
+        }}
+      >
         <Link to="/contractors" className="guys-btn">
           Back to Contractors
         </Link>

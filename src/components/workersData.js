@@ -13,8 +13,8 @@ export const workersData = {
         { user: "Rohit", stars: 4, comment: "Great service, just took a little extra time." }
       ],
       beforeafter: {
-        before: "/images/contractors/beforeafterimages/cleaningimges/beforedeepclean.png",
-        after: "/images/contractors/beforeafterimages/cleaningimges/afterdeepclean.png"
+        before: "/images/contractors/beforeafterimages/cleaningimages/beforedeepclean.png",
+        after: "/images/contractors/beforeafterimages/cleaningimages/afterdeepclean.png"
       }
     },
     {
@@ -30,8 +30,8 @@ export const workersData = {
         { user: "Priya", stars: 4, comment: "Good service, but could improve on finishing details." }
       ],
       beforeafter: {
-        before: "/images/contractors/cleaningcont/before/rameshkumar_before.jpg",
-        after: "/images/contractors/cleaningcont/after/rameshkumar_after.jpg"
+         before: "/images/contractors/beforeafterimages/cleaningimages/officecleanbefore.png",
+         after: "/images/contractors/beforeafterimages/cleaningimages/officecleanafter.png"
       }
     },
     {
@@ -47,8 +47,8 @@ export const workersData = {
         { user: "Rajesh", stars: 4, comment: "Bathroom cleaning was good, but could improve on time management." }
       ],
       beforeafter: {
-        before: "/images/contractors/cleaningcont/before/meenasharma_before.jpg",
-        after: "/images/contractors/cleaningcont/after/meenasharma_after.jpg"
+        before: "/images/contractors/beforeafterimages/cleaningimages/kitchebathbeforeclean.png",
+        after: "/images/contractors/beforeafterimages/cleaningimages/kitchbathrafterclean.png"
       }
     },
     {
