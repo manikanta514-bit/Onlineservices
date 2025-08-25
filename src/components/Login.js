@@ -89,7 +89,7 @@ const Login = () => {
           Don't have an account?{' '}
           <span
             className="auth-link"
-            style={{ cursor: 'pointer', color: '#2c5364' }}
+            style={{ cursor: 'pointer' }}
             onClick={() => navigate('/signup')}
           >
             Signup

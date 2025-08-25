@@ -39,7 +39,7 @@ const Services = () => {
   return (
     <div className="page-content">
       {username && (
-        <h2 style={{ textAlign: "center", color: "gold" }}>
+        <h2 style={{ textAlign: "center", color: "orange" }}>
           Welcome, {username}
         </h2>
       )}

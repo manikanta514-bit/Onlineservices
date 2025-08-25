@@ -1,7 +1,8 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { workersData } from "./workersData";
 import { FaStar } from "react-icons/fa";
+import ReactCompareImage from "react-compare-image"; // 👈 added for before/after
 
 const ContractorPage = () => {
   const { id } = useParams();
@@ -36,6 +37,20 @@ const ContractorPage = () => {
         </div>
       </div>
 
+      {/* ✅ Before/After Section */}
+      {contractor.beforeafter && contractor.beforeafter.before && contractor.beforeafter.after ? (
+        <div className="before-after-section" style={{ marginTop: "30px" }}>
+          <h2 style={{ color: "gold", textAlign: "center", marginBottom: "15px" }}>
+            Before & After Work
+          </h2>
+          <ReactCompareImage
+            leftImage={contractor.beforeafter.before}
+            rightImage={contractor.beforeafter.after}
+            sliderLineColor="gold"
+          />
+        </div>
+      ) : null}
+
       <div className="reviews-section">
         <h2>Reviews</h2>
         {contractor.reviews && contractor.reviews.length > 0 ? (
@@ -57,6 +72,13 @@ const ContractorPage = () => {
         ) : (
           <p>No reviews yet.</p>
         )}
+      </div>
+
+      {/* ✅ Back to Contractors */}
+      <div style={{ textAlign: "center", marginTop: "30px",textDecoration:"none" }}>
+        <Link to="/contractors" className="guys-btn">
+          Back to Contractors
+        </Link>
       </div>
     </div>
   );

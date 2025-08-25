@@ -3,8 +3,8 @@ const Home = () => {
   const cardStyleCleaning = { backgroundImage: 'url("/images/Cleaning.png")', backgroundSize: 'cover', backgroundPosition: 'center' };
   const cardStyleRepairs = { backgroundImage: 'url("/images/Repairs.png")', backgroundSize: 'cover', backgroundPosition: 'center' };
   const cardStyleInstallations = { backgroundImage: 'url("/images/Installations2.png")', backgroundSize: 'cover', backgroundPosition: 'center' };
-  const cardStylePainting = { backgroundImage: 'url("/images/paintings/Texture paint specialized paint.png")', backgroundSize: 'cover', backgroundPosition: 'center' };
-  const cardStylePackersMovers = { backgroundImage: 'url("/images/packersmovers/fragile tems.png")', backgroundSize: 'cover', backgroundPosition: 'center' };
+  const cardStylePainting = { backgroundImage: 'url("/images/Texture paint specialized paint1.png")', backgroundSize: 'cover', backgroundPosition: 'center' };
+  const cardStylePackersMovers = { backgroundImage: 'url("/images/fragile tems1.png")', backgroundSize: 'cover', backgroundPosition: 'center' };
   return (
     <main className="main-content">
       <div className="hero-section center-text">

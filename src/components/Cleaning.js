@@ -82,7 +82,7 @@ const Cleaning = () => {
   return (
     <div className="guys-detail">
       <h1>
-        Professional Cleaning Services <FaBroom style={{ color: "gold", marginLeft: "8px" }} />
+        Professional Cleaning Services <FaBroom style={{ color: "orange", marginLeft: "8px" }} />
       </h1>
       <p>
         Choose from a wide variety of cleaning packages designed to give you a spotless and healthy environment.
