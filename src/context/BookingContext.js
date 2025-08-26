@@ -29,7 +29,7 @@ export const BookingProvider = ({ children }) => {
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedArea, setSelectedArea] = useState("");
 
-  // 🔹 Auth Listener & Firestore Sync (full handling with proper cleanup)
+  // 🔹 Auth Listener + Firestore Sync
   useEffect(() => {
     let unsubscribeProfile = null;
     let unsubscribeBookings = null;
@@ -37,7 +37,6 @@ export const BookingProvider = ({ children }) => {
     const authUnsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
 
-      // 🔹 User logged out
       if (!currentUser) {
         if (unsubscribeProfile) unsubscribeProfile();
         if (unsubscribeBookings) unsubscribeBookings();
@@ -62,6 +61,8 @@ export const BookingProvider = ({ children }) => {
             email: currentUser.email || "no-email",
             role: "user",
             name: currentUser.displayName || "Anonymous",
+            bio: "",
+            phone: "",
             createdAt: serverTimestamp(),
           });
           console.log("✅ Firestore user created for", currentUser.email || currentUser.uid);
@@ -88,7 +89,7 @@ export const BookingProvider = ({ children }) => {
         }
       );
 
-      // 🔹 Listen to bookings
+      // 🔹 Listen to user bookings
       const bookingsQuery = query(
         collection(db, "users", currentUser.uid, "bookings"),
         orderBy("createdAt", "asc")
@@ -96,10 +97,15 @@ export const BookingProvider = ({ children }) => {
       unsubscribeBookings = onSnapshot(
         bookingsQuery,
         (snapshot) => {
-          const userBookings = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
+          const userBookings = snapshot.docs.map((doc) => {
+            const data = doc.data();
+            return {
+              id: doc.id,
+              ...data,
+              date: data.date || null, // ✅ Include date
+              service: data.service || "Unknown", // ✅ Include service
+            };
+          });
           setBookings(userBookings);
           console.log("🔹 DEBUG: Bookings snapshot received", userBookings);
         },
@@ -128,8 +134,11 @@ export const BookingProvider = ({ children }) => {
           username: userProfile?.name || "Anonymous",
           status: "Pending",
           createdAt: serverTimestamp(),
+          date: bookingData.date || null, // ✅ Save date
+          service: bookingData.service || "General", // ✅ Save service
         };
 
+        // Save in top-level + user subcollection
         await setDoc(doc(db, "bookings", bookingId), newBooking);
         await setDoc(doc(db, "users", user.uid, "bookings", bookingId), newBooking);
 
@@ -184,12 +193,14 @@ export const BookingProvider = ({ children }) => {
   const clearBookings = useCallback(async () => {
     if (!user?.uid) return;
     try {
+      // Delete from user bookings
       const userBookingsRef = collection(db, "users", user.uid, "bookings");
       const userSnapshot = await getDocs(userBookingsRef);
       const batch = writeBatch(db);
       userSnapshot.forEach((docSnap) => batch.delete(docSnap.ref));
       await batch.commit();
 
+      // Delete from top-level bookings
       const topLevelBookingsQuery = query(collection(db, "bookings"), where("userId", "==", user.uid));
       const topLevelSnapshot = await getDocs(topLevelBookingsQuery);
       const topLevelBatch = writeBatch(db);

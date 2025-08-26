@@ -14,7 +14,6 @@ import Help from './components/Help';
 import About from './components/About';
 import Signup from './components/Signup';
 import Login from './components/Login';
-import Settings from './components/Settings';
 import Contractors from './components/Contractors';
 import Painting from './components/Painting';
 import PackersMovers from './components/PackersMovers';
@@ -23,6 +22,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import AdminDashboard from './components/AdminDashboard';
 import AdminProtectedRoute from './components/AdminProtectedRoute';
 import ContractorPage from './components/ContractorPage';
+import Profile from './components/Profile';
 
 function App() {
   return (
@@ -39,11 +39,11 @@ function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/help" element={<Help />} />
         <Route path="/about" element={<About />} />
-        <Route path="/settings" element={<Settings />} />
         <Route path="/contractors" element={<Contractors />} />
          <Route path="/contractors/:id" element={<ContractorPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
 
         {/* Protected Routes */}
         <Route

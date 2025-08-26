@@ -22,16 +22,16 @@ const Header = () => {
             </div>
             {menuOpen && (
                 <div className="hamburger-menu">
+                    <Link to="/profile" onClick={() => setMenuOpen(false)}>Profile</Link><hr />
                     <Link to="/services" onClick={() => setMenuOpen(false)}>Services</Link><hr />
                     <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link><hr />
                     <Link to="/help" onClick={() => setMenuOpen(false)}>Help</Link><hr />
-                    <Link to="/settings" onClick={() => setMenuOpen(false)}>Settings</Link><hr />
                     <Link to="/contractors" onClick={() => setMenuOpen(false)}>Contractors</Link><hr />
                     <Link to="/userdashboard" onClick={() => setMenuOpen(false)}>UserDashboard</Link><hr />
                     
                     {userProfile?.role === 'admin' && (
                         <>
-                         <Link to="/admin" onClick={() => setMenuOpen(false)} style={{ color: '#FFD700', fontWeight: 'bold' }}> Admin Dashboard
+                         <Link to="/admin" onClick={() => setMenuOpen(false)} style={{  fontWeight: 'bold' }}> Admin Dashboard
                          </Link>
                     
                         </>
