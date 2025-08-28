@@ -1,13 +1,16 @@
 body {
   margin: 0;
   min-height: 100vh;
-     background: linear-gradient(135deg, #8ECAE6, #219EBC);
-  color: #023047; 
+  background: linear-gradient(145deg, #219EBC, #8ECAE6);
+  color: #023047;
   font-family: 'Times New Roman', Times, serif;
 }
+
 .main-content, .page-content {
-  padding: 20px;
+  padding: 20px;  /* example styling */
+  background: linear-gradient(145deg, #219EBC, #8ECAE6);
 }
+
 /* ===== Header ===== */
 .main-header {
   background: linear-gradient(135deg, #023047, #219EBC); /* Prussian blue to Blue Green gradient */

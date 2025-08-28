@@ -10,7 +10,7 @@ const Home = () => {
 
   return (
     <main className="main-content">
-      {/* Hero Section */}
+    
       <div className="hero-section center-text">
         <h1>Welcome to Online Services</h1>
         <h3>Professional Services, Just a Click Away.</h3>
@@ -26,7 +26,6 @@ const Home = () => {
         </p>
       </div>
 
-      {/* Services Intro */}
       <div className="services-intro">
         <h2>Your One-Stop Solution for Home & Office Care</h2>
         <p>
@@ -36,7 +35,6 @@ const Home = () => {
         </p>
       </div>
 
-      {/* Services Grid */}
       <div className="services-grid">
         <div className="service-card" style={cardStyleCleaning}>
           <i className="fas fa-spray-can fa-3x card-icon" style={{ color: "gold" }}></i>
@@ -94,8 +92,6 @@ const Home = () => {
           </ul>
         </div>
       </div>
-
-      {/* Testimonials */}
       <div className="testimonials-section">
         <h2>What Our Customers Say</h2>
         <div className="testimonials-grid">
@@ -138,31 +134,14 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Footer */}
       <footer className="footer">
         <div className="footer-container">
-
-          {/* About Us (Centered) */}
           <div className="footer-section about centered">
             <h2>About Us</h2>
-            <p>
-              At <strong>Online Services</strong>, we bring convenience to your doorstep by 
-              connecting you with <em>trusted professionals</em> for all your daily needs — 
-              from cleaning, repair, installation, and painting, to hassle-free relocation.  
-            </p>
-            <p>
-              Our mission is simple: <strong>to make home and office care seamless, 
-              affordable, and stress-free</strong>. With a customer-first approach, 
-              we ensure quality service, transparent pricing, and reliable support 
-              every step of the way.
-            </p>
-            <p>
-              Whether it’s a one-time task or regular maintenance, we are here 
-              to help you save time, reduce effort, and live smarter. 
-            </p>
+            <p> At <strong>Online Services</strong>, we bring convenience to your doorstep by  connecting you with <em>trusted professionals</em> for all your daily needs — from cleaning, repair, installation, and painting, to hassle-free relocation.  </p>
+            <p> Our mission is simple: <strong>to make home and office care seamless,  affordable, and stress-free</strong>. With a customer-first approach,  we ensure quality service, transparent pricing, and reliable support every step of the way.</p>
+            <p>Whether it’s a one-time task or regular maintenance, we are here to help you save time, reduce effort, and live smarter. </p>
           </div>
-
-          {/* Contact + Social */}
           <div className="footer-bottom">
             <div className="footer-section contact">
               <h2>Contact Us</h2>
@@ -170,7 +149,6 @@ const Home = () => {
               <p><FaEnvelope style={{ color: "gold", marginRight: "8px" }} /> onlineservices@giet.com</p>
               <p><FaPhoneAlt style={{ color: "gold", marginRight: "8px" }} /> +91 xxxxxxxxxx</p>
             </div>
-
             <div className="footer-section social">
               <h2>Follow Us</h2>
               <div className="social-icons">
@@ -180,18 +158,13 @@ const Home = () => {
               </div>
             </div>
           </div>
-
           <hr className="footer-line" />
-
-          {/* Credits */}
           <div className="credits">
             DESIGNED BY <span className="team-name">TEAM A 295</span> STUDENTS FROM GIET POLYTECHNIC COLLEGE
             <div className="team-members">
               ABHIRAM • HARSHA • MANIKANTA • GOPAL • SANTHOSH • DINESH
             </div>
           </div>
-
-          {/* Copyright */}
           <div className="copyright">
             © {new Date().getFullYear()} Online Services. All Rights Reserved.
           </div>
