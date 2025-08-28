@@ -10,7 +10,7 @@ const About = () => {
       <h1 style={{
           textAlign: "center",color: "white",marginBottom: "30px",fontSize: "40px"}}>About Us</h1>
       <p style={{ fontSize: "18px", marginBottom: "20px", color: "#000000ff" }}>
-        Welcome to <strong style={{ color: "white" }}>Onlineservices</strong>, where excellence in service meets genuine care for our customers.From spotless homes to expertly handled repairs and hassle‑free installations, we’re more than just a service provider — we’re your trusted partner in making life easier, cleaner, and more comfortable.</p>
+        hi and hello to <strong style={{ color: "white" }}>Onlineservices</strong>, where excellence in service meets genuine care for our customers.From spotless homes to expertly handled repairs and hassle‑free installations, we’re more than just a service provider — we’re your trusted partner in making life easier, cleaner, and more comfortable.</p>
       <h2 style={{ color: "white", marginTop: "30px" }}>Our Story</h2>
       <p style={{ color: "#000000ff" }}>Every great journey begins with a purpose. Ours began with a simple yet powerful idea: <strong> to make quality home services accessible, reliable, and stress‑free for everyone.</strong></p>
       <p style={{ color: "#000000ff" }}>We noticed that people often struggled to find dependable help when it came to cleaning, repairs, and installations. Determined to change this, we built <strong> Onlineservices</strong>, a service platform that puts customers first.</p>
