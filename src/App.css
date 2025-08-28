@@ -8,7 +8,7 @@ body {
 .main-content, .page-content {
   padding: 20px;
 }
-/* ===== Header ===== */
+/* ===== Header ==== */
 .main-header {
   background: linear-gradient(135deg, #023047, #219EBC); /* Prussian blue to Blue Green gradient */
   padding: 1rem 0;
