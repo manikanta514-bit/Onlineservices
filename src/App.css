@@ -1311,7 +1311,7 @@ body {
 /* === Sidebar === */
 .sidebar {
   position: fixed;
-  top: 100px; /* start 1 inch down */
+  top: 102px; /* start 1 inch down */
   left: 0;
   height: calc(100% - 70px);
   width: 220px;
@@ -1530,7 +1530,7 @@ button:hover,
 
 @media (max-width: 480px) {
   .sidebar {
-    top: 60px;
+    top: 102px;
     width: 150px;
   }
   .dashboard-content {
