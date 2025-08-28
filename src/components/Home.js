@@ -1,12 +1,16 @@
 import React from 'react';
+import { FaMapMarkerAlt, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
+
 const Home = () => {
   const cardStyleCleaning = { backgroundImage: 'url("/images/Cleaning.png")', backgroundSize: 'cover', backgroundPosition: 'center' };
   const cardStyleRepairs = { backgroundImage: 'url("/images/Repairs.png")', backgroundSize: 'cover', backgroundPosition: 'center' };
   const cardStyleInstallations = { backgroundImage: 'url("/images/Installations2.png")', backgroundSize: 'cover', backgroundPosition: 'center' };
   const cardStylePainting = { backgroundImage: 'url("/images/Texture paint specialized paint1.png")', backgroundSize: 'cover', backgroundPosition: 'center' };
   const cardStylePackersMovers = { backgroundImage: 'url("/images/fragile tems1.png")', backgroundSize: 'cover', backgroundPosition: 'center' };
+
   return (
     <main className="main-content">
+      {/* Hero Section */}
       <div className="hero-section center-text">
         <h1>Welcome to Online Services</h1>
         <h3>Professional Services, Just a Click Away.</h3>
@@ -21,6 +25,8 @@ const Home = () => {
           Experience the new standard of home services—affordable, dependable, and designed for your modern life.
         </p>
       </div>
+
+      {/* Services Intro */}
       <div className="services-intro">
         <h2>Your One-Stop Solution for Home & Office Care</h2>
         <p>
@@ -29,6 +35,8 @@ const Home = () => {
           for every job directly to you. Explore our primary services below.
         </p>
       </div>
+
+      {/* Services Grid */}
       <div className="services-grid">
         <div className="service-card" style={cardStyleCleaning}>
           <i className="fas fa-spray-can fa-3x card-icon" style={{ color: "gold" }}></i>
@@ -63,29 +71,31 @@ const Home = () => {
             <li>Light Fixture & Fan Installation</li>
           </ul>
         </div>
-         <div className="service-card" style={cardStylePainting}>
-           <i className="fas fa-paint-roller fa-3x card-icon" style={{ color: "gold" }}></i>
-           <h2>Custom Painting</h2>
-           <p>Bring your walls to life with vibrant colors and premium finishes.</p>
-           <ul className="service-list">
-           <li>Interior & Exterior Painting</li>
-           <li>Custom Wall Murals</li>
-           <li>Waterproof Coatings</li>
-           <li>Wood & Metal Painting</li>
-           </ul>
-         </div>
-         <div className="service-card" style={cardStylePackersMovers}>
+        <div className="service-card" style={cardStylePainting}>
+          <i className="fas fa-paint-roller fa-3x card-icon" style={{ color: "gold" }}></i>
+          <h2>Custom Painting</h2>
+          <p>Bring your walls to life with vibrant colors and premium finishes.</p>
+          <ul className="service-list">
+            <li>Interior & Exterior Painting</li>
+            <li>Custom Wall Murals</li>
+            <li>Waterproof Coatings</li>
+            <li>Wood & Metal Painting</li>
+          </ul>
+        </div>
+        <div className="service-card" style={cardStylePackersMovers}>
           <i className="fas fa-truck-moving fa-3x card-icon" style={{ color: "gold" }}></i>
           <h2>Packers & Movers</h2>
-           <p>Safe and reliable relocation services for your home or office.</p>
-            <ul className="service-list">
-           <li>Household Shifting</li>
-           <li>Office Relocation</li>
-          <li>Local & Long Distance Moves</li>
-          <li>Packing, Loading & Unloading</li>
+          <p>Safe and reliable relocation services for your home or office.</p>
+          <ul className="service-list">
+            <li>Household Shifting</li>
+            <li>Office Relocation</li>
+            <li>Local & Long Distance Moves</li>
+            <li>Packing, Loading & Unloading</li>
           </ul>
-           </div>
+        </div>
       </div>
+
+      {/* Testimonials */}
       <div className="testimonials-section">
         <h2>What Our Customers Say</h2>
         <div className="testimonials-grid">
@@ -127,7 +137,68 @@ const Home = () => {
           </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="footer">
+        <div className="footer-container">
+
+          {/* About Us (Centered) */}
+          <div className="footer-section about centered">
+            <h2>About Us</h2>
+            <p>
+              At <strong>Online Services</strong>, we bring convenience to your doorstep by 
+              connecting you with <em>trusted professionals</em> for all your daily needs — 
+              from cleaning, repair, installation, and painting, to hassle-free relocation.  
+            </p>
+            <p>
+              Our mission is simple: <strong>to make home and office care seamless, 
+              affordable, and stress-free</strong>. With a customer-first approach, 
+              we ensure quality service, transparent pricing, and reliable support 
+              every step of the way.
+            </p>
+            <p>
+              Whether it’s a one-time task or regular maintenance, we are here 
+              to help you save time, reduce effort, and live smarter. 
+            </p>
+          </div>
+
+          {/* Contact + Social */}
+          <div className="footer-bottom">
+            <div className="footer-section contact">
+              <h2>Contact Us</h2>
+              <p><FaMapMarkerAlt style={{ color: "gold", marginRight: "8px" }} /> GIET Polytechnic College, Rajahmundry, AP</p>
+              <p><FaEnvelope style={{ color: "gold", marginRight: "8px" }} /> onlineservices@giet.com</p>
+              <p><FaPhoneAlt style={{ color: "gold", marginRight: "8px" }} /> +91 xxxxxxxxxx</p>
+            </div>
+
+            <div className="footer-section social">
+              <h2>Follow Us</h2>
+              <div className="social-icons">
+                <a href="/"><i className="fab fa-facebook-f"></i></a>
+                <a href="/"><i className="fab fa-instagram"></i></a>
+                <a href="/"><i className="fab fa-github"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <hr className="footer-line" />
+
+          {/* Credits */}
+          <div className="credits">
+            DESIGNED BY <span className="team-name">TEAM A 295</span> STUDENTS FROM GIET POLYTECHNIC COLLEGE
+            <div className="team-members">
+              ABHIRAM • HARSHA • MANIKANTA • GOPAL • SANTHOSH • DINESH
+            </div>
+          </div>
+
+          {/* Copyright */}
+          <div className="copyright">
+            © {new Date().getFullYear()} Online Services. All Rights Reserved.
+          </div>
+        </div>
+      </footer>
     </main>
   );
 };
+
 export default Home;
