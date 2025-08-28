@@ -717,184 +717,7 @@ body {
   box-shadow: 0 6px 12px rgba(255, 133, 0, 0.9);
 }
 /* ===== Admin Dashboard ===== */
-.admin-dashboard {
-  padding: 2rem 3rem;
-  max-width: 1400px;
-  margin: 2rem auto;
-  background: linear-gradient(135deg, #023047, #219EBC); 
-  border-radius: 15px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  font-family: 'Times New Roman', Times, serif;
-}
-.admin-dashboard h1, .dashboard-main-heading {
-  margin-bottom: 1.5rem;
-  color: #FFB703; 
-  text-align: center;
-  font-size: 2.5em;
-  font-weight: 700;
-  text-shadow: 0 2px 10px rgba(255, 183, 3, 0.3);
-  font-family: 'Times New Roman', Times, serif;
-}
-.admin-dashboard h2, .dashboard-sub-heading {
-  margin-top: 3rem;
-  margin-bottom: 1.5rem;
-  color: #FB8500; 
-  border-bottom: 2px solid #219EBC; 
-  padding-bottom: 0.75rem;
-  font-size: 1.8em;
-  letter-spacing: 1px;
-  font-family: 'Times New Roman', Times, serif;
-}
-.table-container {
-  overflow-x: auto;
-  font-family: 'Times New Roman', Times, serif;
-}
-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  margin-top: 1.5rem;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-  background: transparent;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 20px;
-  font-family: 'Times New Roman', Times, serif;
-}
-th, td {
-  padding: 16px 20px;
-  text-align: left;
-  border-bottom: 1px solid rgba(221, 221, 221, 0.1);
-  vertical-align: middle;
-}
-th {
-  background: linear-gradient(135deg, #219EBC, #8ECAE6); 
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 0.9em;
-  color: #023047; 
-  letter-spacing: 0.5px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-}
-td {
-  color: #8ECAE6; 
-}
-tbody tr {
-  background-color: rgba(0, 48, 71, 0.5); 
-  transition: transform 0.2s ease-out, background-color 0.2s ease-out, box-shadow 0.2s ease-out;
-  border-left: 4px solid transparent;
-}
-tbody tr:hover {
-  background-color: rgba(33, 158, 188, 0.8); 
-  transform: scale(1.02);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-  border-left: 4px solid #FFB703; 
-  cursor: pointer;
-}
-.admin-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  justify-content: flex-start;
-  font-family: 'Times New Roman', Times, serif;
-}
-.edit-btn, .delete-btn, .back-home-btn {
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 9px 15px;
-  border-radius: 8px;
-  cursor: pointer;
-  color: #023047; 
-  font-weight: 600;
-  transition: all 0.2s ease-in-out;
-  background: linear-gradient(135deg, #FFB703, #FB8500); 
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  flex-shrink: 0;
-  font-size: 16px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  font-family: 'Times New Roman', Times, serif;
-}
-.edit-btn:hover {
-  background: #8ECAE6; 
-  color: #023047; 
-  box-shadow: 0 0 15px #219EBC; 
-  border-color: #219EBC;
-}
-.delete-btn:hover {
-  background: red;
-  color: white;
-  box-shadow: 0 0 15px red;
-  border-color: red;
-  font-family: 'Times New Roman', Times, serif;
-}
-.back-home-btn:hover {
-  background: #023047; 
-  color: #FFB703; 
-  box-shadow: 0 0 15px #FB8500;
-  font-family: 'Times New Roman', Times, serif;
-}
-.status-input, .status-dropdown {
-  background-color: rgba(0, 48, 71, 0.9); 
-  color: #FFB703; 
-  border: 1px solid #FFB703; 
-  border-radius: 6px;
-  padding: 8px 12px;
-  width: 100%;
-  box-sizing: border-box;
-  transition: box-shadow 0.2s ease;
-  font-family: 'Times New Roman', Times, serif;
-}
-.status-input:focus {
-  outline: none;
-  box-shadow: 0 0 10px #FB8500; 
-}
-.bookings-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  font-family: 'Times New Roman', Times, serif;
-}
-.status-container h3 {
-  color: #FB8500;
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-  border-bottom: 1px solid #FFB703; 
-  padding-bottom: 5px;
-  font-family: 'Times New Roman', Times, serif;
-}
-.status-badge {
-  display: inline-block;
-  padding: 5px 10px;
-  border-radius: 20px;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-top: 10px;
-  color: #ffffff;
-  font-size: 13px;
-}
-.status-badge.pending { background-color: #FB8500; } 
-.status-badge.completed { background-color: green; }
-.status-badge.cancelled { background-color: red; }
-.search-input {
-  width: 100%;
-  max-width: 400px;
-  padding: 8px 12px;
-  margin: 15px auto;
-  display: block;
-  border-radius: 8px;
-  border: 1px solid #219EBC; 
-  color: #023047; 
-  font-family: 'Times New Roman', Times, serif;
-}
-.center-btn {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  font-family: 'Times New Roman', Times, serif;
-}
+
 /* ===== Contractor Page ===== */
 .contractor-page-container {
   max-width: 900px;
@@ -1476,131 +1299,250 @@ tbody tr:hover {
   transform: scale(1.05);
   box-shadow: 0 0 20px black;
 }
-/* ---------------- Sidebar ---------------- */
-.sidebar {
-  width: 250px;
-  background-color: #1f2937;
-  color: #fff;
-  transition: transform 0.3s ease;
-  position: relative;
+/* Container */
+/* === Admin Dashboard Container === */
+.admin-dashboard {
+  display: flex;
   height: 100vh;
+  background: linear-gradient(135deg, #023047, #219EBC);
+  font-family: 'Times New Roman', Times, serif;
+  color: #023047;
+  overflow: hidden;
+}
+
+/* === Sidebar === */
+.sidebar {
+  position: fixed;
+  top: 70px; /* start 1 inch down */
+  left: 0;
+  height: calc(100% - 70px);
+  width: 220px;
+  background: #023047;
+  color: white;
+  padding: 20px 10px;
+  transition: width 0.3s ease;
+  display: flex;
+  flex-direction: column;
   z-index: 1000;
 }
 
 .sidebar.closed {
-  transform: translateX(-100%);
-}
-
-.sidebar.open {
-  transform: translateX(0);
+  width: 60px;
 }
 
 .sidebar-toggle {
-  font-size: 24px;
-  padding: 15px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
   cursor: pointer;
-  background-color: #111827;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin-bottom: 20px;
+  align-self: flex-end;
 }
 
 .menu {
   list-style: none;
   padding: 0;
-  margin: 0;
+  flex: 1;
 }
 
 .menu li {
-  padding: 15px 20px;
+  padding: 12px;
+  margin: 6px 0;
   cursor: pointer;
-  transition: background 0.2s;
+  border-radius: 6px;
+  transition: background 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.menu li:hover {
-  background-color: #374151;
-}
-
+.menu li:hover,
 .menu li.active {
-  background-color: #2563eb;
+  background: #219EBC;
+  color: #fff;
 }
 
-/* ---------------- Main Content ---------------- */
+.menu .icon {
+  font-size: 18px;
+}
+
+/* === Main Content === */
 .main-content {
+  margin-left: 240px;
+  padding: 20px 30px;
   flex: 1;
-  padding: 20px;
-  background-color: #f4f6f8;
-  overflow-x: auto;
+  transition: margin-left 0.3s ease;
+  overflow-y: auto;
 }
 
+.sidebar.closed ~ .main-content {
+  margin-left: 80px;
+}
+
+/* Dashboard Heading */
+.main-content h1,
+.dashboard-main-heading {
+  margin-bottom: 1.5rem;
+  color: #FFB703;
+  text-align: center;
+  font-size: 2.5em;
+  font-weight: 700;
+  text-shadow: 0 2px 10px rgba(255, 183, 3, 0.3);
+}
+
+.main-content h2,
+.dashboard-sub-heading {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #FB8500;
+  border-bottom: 2px solid #219EBC;
+  padding-bottom: 0.5rem;
+  font-size: 1.8em;
+  letter-spacing: 1px;
+}
+
+/* === Table Styling === */
 .table-container {
   overflow-x: auto;
-  margin-top: 15px;
-  border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+  margin-top: 20px;
 }
 
-/* ---------------- Status Badges ---------------- */
-.status-badge {
-  padding: 4px 8px;
-  border-radius: 4px;
-  color: #fff;
-  font-weight: bold;
-  text-transform: capitalize;
-}
-
-.status-badge.user { background-color: #6b7280; }
-.status-badge.admin { background-color: #f59e0b; }
-.status-badge.pending { background-color: #facc15; }
-.status-badge.completed { background-color: #10b981; }
-.status-badge.cancelled { background-color: #ef4444; }
-
-/* ---------------- Buttons ---------------- */
-button {
-  padding: 6px 12px;
-  margin: 0 2px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.2s;
-}
-
-.edit-btn { background-color: #2563eb; color: #fff; }
-.edit-btn:hover { background-color: #1e40af; }
-
-.delete-btn { background-color: #ef4444; color: #fff; }
-.delete-btn:hover { background-color: #b91c1c; }
-
-.center-btn { margin-top: 20px; text-align: center; }
-
-.back-home-btn {
-  padding: 10px 20px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  background-color: #2563eb;
-  color: #fff;
-  transition: 0.3s;
-}
-.back-home-btn:hover { background-color: #1e40af; }
-
-/* ---------------- Search Input ---------------- */
-.search-input {
-  margin: 10px 0;
-  padding: 8px 12px;
+table {
   width: 100%;
-  border-radius: 6px;
-  border: 1px solid #d1d5db;
-  outline: none;
-  font-size: 1rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 1.5rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  background: rgba(0, 48, 71, 0.8);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
 }
 
-/* ---------------- Responsive ---------------- */
+th,
+td {
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(221, 221, 221, 0.2);
+  text-align: center;
+  font-weight: 600;
+}
+
+th {
+  background: linear-gradient(135deg, #219EBC, #8ECAE6);
+  color: #023047;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+td {
+  color: #8ECAE6;
+}
+
+tbody tr {
+  background-color: rgba(0, 48, 71, 0.5);
+  transition: all 0.2s ease-out;
+}
+
+tbody tr:hover {
+  background-color: rgba(33, 158, 188, 0.8);
+  transform: scale(1.01);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  border-left: 4px solid #FFB703;
+}
+
+/* === Buttons === */
+button,
+.edit-btn,
+.delete-btn,
+.back-home-btn {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  background: linear-gradient(135deg, #FFB703, #FB8500);
+  color: #023047;
+  transition: 0.2s ease;
+}
+
+button:hover,
+.edit-btn:hover {
+  background: #8ECAE6;
+  color: #023047;
+}
+
+.delete-btn:hover {
+  background: red;
+  color: #fff;
+}
+
+.back-home-btn:hover {
+  background: #023047;
+  color: #FFB703;
+}
+
+/* === Status Badges === */
+.status-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: white;
+}
+
+.status-badge.admin { background: #ff6b6b; }
+.status-badge.user { background: #4caf50; }
+.status-badge.pending { background: #FB8500; }
+.status-badge.completed { background: green; }
+.status-badge.cancelled { background: red; }
+
+/* === Search Input === */
+.search-input {
+  width: 100%;
+  max-width: 350px;
+  padding: 8px 12px;
+  margin: 15px auto;
+  display: block;
+  border-radius: 8px;
+  border: 1px solid #219EBC;
+  color: #023047;
+}
+
+/* === Responsive === */
 @media (max-width: 768px) {
   .sidebar {
-    position: absolute;
+    width: 180px;
+  }
+  .sidebar.closed {
+    width: 60px;
+  }
+  .main-content {
+    margin-left: 190px;
+  }
+  .sidebar.closed ~ .main-content {
+    margin-left: 70px;
+  }
+  table {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    top: 60px;
+    width: 150px;
+  }
+  .main-content {
+    margin-left: 160px;
+    padding: 10px;
+  }
+  table {
+    font-size: 12px;
+  }
+  th, td {
+    padding: 6px;
   }
 }
