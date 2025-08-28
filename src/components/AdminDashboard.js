@@ -2,8 +2,9 @@ import React, { useState, useEffect, useMemo, useContext } from "react";
 import { db } from "../context/firebase";
 import { collection, onSnapshot, doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import "../App.css";
 import { BookingContext } from "../context/BookingContext";
+import { FaBars, FaTimes } from "react-icons/fa";
+import "../App.css";
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
@@ -14,6 +15,8 @@ const AdminDashboard = () => {
   const [editingUserId, setEditingUserId] = useState(null);
   const [newRole, setNewRole] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [activeMenu, setActiveMenu] = useState("users"); // which table shows
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const navigate = useNavigate();
   const { updateBookingStatus } = useContext(BookingContext);
 
@@ -22,10 +25,7 @@ const AdminDashboard = () => {
     const usersRef = collection(db, "users");
     const unsubscribe = onSnapshot(
       usersRef,
-      (snapshot) => {
-        const fetchedUsers = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-        setUsers(fetchedUsers);
-      },
+      (snapshot) => setUsers(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))),
       (error) => console.error("Error fetching users:", error)
     );
     return () => unsubscribe();
@@ -38,8 +38,7 @@ const AdminDashboard = () => {
     const unsubscribe = onSnapshot(
       bookingsRef,
       (snapshot) => {
-        const fetchedBookings = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-        setBookings(fetchedBookings);
+        setBookings(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
         setLoading(false);
       },
       (error) => {
@@ -50,7 +49,6 @@ const AdminDashboard = () => {
     return () => unsubscribe();
   }, []);
 
-  // Filter Bookings
   const filteredBookings = useMemo(() => {
     const search = searchTerm.toLowerCase();
     return bookings.filter(
@@ -61,7 +59,6 @@ const AdminDashboard = () => {
     );
   }, [bookings, searchTerm]);
 
-  // Delete Booking
   const handleDeleteBooking = async (bookingId) => {
     if (window.confirm("Delete this booking permanently?")) {
       try {
@@ -73,7 +70,6 @@ const AdminDashboard = () => {
     }
   };
 
-  // Update Booking Status
   const handleUpdateStatus = async () => {
     if (!editingBookingId || !newStatus) return;
     try {
@@ -89,7 +85,6 @@ const AdminDashboard = () => {
     }
   };
 
-  // Update User Role
   const handleUpdateUserRole = async () => {
     if (!editingUserId || !newRole) return;
     const previousUser = users.find((u) => u.id === editingUserId);
@@ -101,14 +96,7 @@ const AdminDashboard = () => {
       );
       setEditingUserId(null);
       setNewRole("");
-
-      if (previousRole === "admin" && newRole === "user") {
-        alert("Role changed from Admin → User successfully!");
-      } else if (previousRole === "user" && newRole === "admin") {
-        alert("Role changed from User → Admin successfully!");
-      } else {
-        alert("Role updated successfully!");
-      }
+      if (previousRole !== newRole) alert(`Role updated: ${previousRole} → ${newRole}`);
     } catch (error) {
       console.error("Error updating user role:", error);
       alert("Failed to update role. Please try again.");
@@ -118,100 +106,141 @@ const AdminDashboard = () => {
   if (loading) return <h1>Loading Dashboard...</h1>;
 
   return (
-    <div className="admin-dashboard">
-      <h1>Admin Dashboard</h1>
-
-      {/* Users Table */}
-      <h2>All Users ({users.length})</h2>
-      <div className="table-container">
-        <table>
-          <thead><tr><th>User ID</th><th>Email</th><th>Role</th><th>Actions</th></tr></thead>
-          <tbody>
-            {users.length > 0 ? (
-              users.map((user) => (
-                <tr key={user.id}>
-                  <td>{user.id}</td>
-                  <td>{user.email || "No Email"}</td>
-                  <td>
-                    {editingUserId === user.id ? (
-                      <select value={newRole} onChange={(e) => setNewRole(e.target.value)} className="status-dropdown">
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
-                      </select>
-                    ) : (
-                      <span className={`status-badge ${user.role || "user"}`}>
-                        {user.role || "user"}
-                      </span>
-                    )}
-                  </td>
-                  <td>
-                    {editingUserId === user.id ? (
-                      <>
-                        <button className="edit-btn" onClick={handleUpdateUserRole}>Save</button>
-                        <button className="delete-btn" onClick={() => { setEditingUserId(null); setNewRole(""); }}>Cancel</button>
-                      </>
-                    ) : (
-                      <button className="edit-btn" onClick={() => { setEditingUserId(user.id); setNewRole(user.role || "user"); }}>Edit</button>
-                    )}
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr><td colSpan={4} style={{ textAlign: "center", fontStyle: "italic" }}>No users found.</td></tr>
-            )}
-          </tbody>
-        </table>
+    <div className="admin-dashboard-container" style={{ display: "flex" }}>
+      {/* Sidebar */}
+      <div className={`sidebar ${sidebarOpen ? "open" : "closed"}`}>
+        <div className="sidebar-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
+          {sidebarOpen ? <FaTimes /> : <FaBars />}
+        </div>
+        <ul className="menu">
+          <li>
+            Dashboard
+          </li>
+          {/* Nested Menu */}
+          <li className="has-submenu">
+            Admin Panel
+            <ul className="submenu">
+              <li
+                className={activeMenu === "users" ? "active" : ""}
+                onClick={() => setActiveMenu("users")}
+              >
+                Users
+              </li>
+              <li
+                className={activeMenu === "bookings" ? "active" : ""}
+                onClick={() => setActiveMenu("bookings")}
+              >
+                Bookings
+              </li>
+            </ul>
+          </li>
+        </ul>
       </div>
 
-      {/* Bookings Table */}
-      <h2>All Bookings ({bookings.length})</h2>
-      <input type="text" placeholder="Search bookings..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="search-input" />
-      <div className="table-container">
-        <table>
-          <thead><tr><th>Booking ID</th><th>User Email</th><th>Service</th><th>Status</th><th>Actions</th></tr></thead>
-          <tbody>
-            {filteredBookings.length > 0 ? (
-              filteredBookings.map((booking) => (
-                <tr key={booking.id}>
-                  <td>{booking.id}</td>
-                  <td>{booking.userEmail || "Unknown"}</td>
-                  <td>{booking.name || "N/A"}</td>
-                  <td>
-                    {editingBookingId === booking.id ? (
-                      <select value={newStatus} onChange={(e) => setNewStatus(e.target.value)} className="status-dropdown">
-                        <option value="Pending">Pending</option>
-                        <option value="Completed">Completed</option>
-                        <option value="Cancelled">Cancelled</option>
-                      </select>
-                    ) : (
-                      <span className={`status-badge ${booking.status?.toLowerCase() || "pending"}`}>{booking.status || "Pending"}</span>
-                    )}
-                  </td>
-                  <td>
-                    {editingBookingId === booking.id ? (
-                      <>
-                        <button className="edit-btn" onClick={handleUpdateStatus}>Save</button>
-                        <button className="delete-btn" onClick={() => { setEditingBookingId(null); setNewStatus(""); }}>Cancel</button>
-                      </>
-                    ) : (
-                      <>
-                        <button className="edit-btn" onClick={() => { setEditingBookingId(booking.id); setNewStatus(booking.status || "Pending"); }}>Edit</button>
-                        <button className="delete-btn" onClick={() => handleDeleteBooking(booking.id)}>Delete</button>
-                      </>
-                    )}
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr><td colSpan={5} style={{ textAlign: "center", fontStyle: "italic" }}>No bookings available.</td></tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+      {/* Main Content */}
+      <div className="main-content" style={{ flex: 1, padding: "20px" }}>
+        {activeMenu === "users" && (
+          <>
+            <h2>All Users ({users.length})</h2>
+            <div className="table-container">
+              <table>
+                <thead>
+                  <tr><th>User ID</th><th>Email</th><th>Role</th><th>Actions</th></tr>
+                </thead>
+                <tbody>
+                  {users.length > 0 ? users.map((user) => (
+                    <tr key={user.id}>
+                      <td>{user.id}</td>
+                      <td>{user.email || "No Email"}</td>
+                      <td>
+                        {editingUserId === user.id ? (
+                          <select value={newRole} onChange={(e) => setNewRole(e.target.value)}>
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                          </select>
+                        ) : (
+                          <span className={`status-badge ${user.role || "user"}`}>{user.role || "user"}</span>
+                        )}
+                      </td>
+                      <td>
+                        {editingUserId === user.id ? (
+                          <>
+                            <button onClick={handleUpdateUserRole}>Save</button>
+                            <button onClick={() => { setEditingUserId(null); setNewRole(""); }}>Cancel</button>
+                          </>
+                        ) : (
+                          <button onClick={() => { setEditingUserId(user.id); setNewRole(user.role || "user"); }}>Edit</button>
+                        )}
+                      </td>
+                    </tr>
+                  )) : (
+                    <tr><td colSpan={4} style={{ textAlign: "center" }}>No users found.</td></tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
 
-      {/* Back Home Button */}
-      <div className="center-btn">
-        <button className="back-home-btn" onClick={() => navigate("/")}>Back to Home</button>
+        {activeMenu === "bookings" && (
+          <>
+            <h2>All Bookings ({bookings.length})</h2>
+            <input
+              type="text"
+              placeholder="Search bookings..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <div className="table-container">
+              <table>
+                <thead>
+                  <tr><th>Booking ID</th><th>User Email</th><th>Service</th><th>Status</th><th>Actions</th></tr>
+                </thead>
+                <tbody>
+                  {filteredBookings.length > 0 ? filteredBookings.map((booking) => (
+                    <tr key={booking.id}>
+                      <td>{booking.id}</td>
+                      <td>{booking.userEmail || "Unknown"}</td>
+                      <td>{booking.name || "N/A"}</td>
+                      <td>
+                        {editingBookingId === booking.id ? (
+                          <select value={newStatus} onChange={(e) => setNewStatus(e.target.value)}>
+                            <option value="Pending">Pending</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Cancelled">Cancelled</option>
+                          </select>
+                        ) : (
+                          <span className={`status-badge ${booking.status?.toLowerCase() || "pending"}`}>
+                            {booking.status || "Pending"}
+                          </span>
+                        )}
+                      </td>
+                      <td>
+                        {editingBookingId === booking.id ? (
+                          <>
+                            <button onClick={handleUpdateStatus}>Save</button>
+                            <button onClick={() => { setEditingBookingId(null); setNewStatus(""); }}>Cancel</button>
+                          </>
+                        ) : (
+                          <>
+                            <button onClick={() => { setEditingBookingId(booking.id); setNewStatus(booking.status || "Pending"); }}>Edit</button>
+                            <button onClick={() => handleDeleteBooking(booking.id)}>Delete</button>
+                          </>
+                        )}
+                      </td>
+                    </tr>
+                  )) : (
+                    <tr><td colSpan={5} style={{ textAlign: "center" }}>No bookings available.</td></tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
+
+        <div className="center-btn">
+          <button onClick={() => navigate("/")}>Back to Home</button>
+        </div>
       </div>
     </div>
   );

@@ -23,6 +23,7 @@ import AdminDashboard from './components/AdminDashboard';
 import AdminProtectedRoute from './components/AdminProtectedRoute';
 import ContractorPage from './components/ContractorPage';
 import Profile from './components/Profile';
+import Reviews from './components/Reviews';
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/reviews" element={<Reviews />} />
 
         {/* Protected Routes */}
         <Route

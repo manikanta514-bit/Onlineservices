@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { workersData } from "./workersData"; // make sure path is correct
+import { workersData } from "./workersData";
+import { FaStar } from "react-icons/fa"; // for stars
 
 const Contractors = () => {
   return (
@@ -11,9 +12,7 @@ const Contractors = () => {
 
       {Object.entries(workersData).map(([category, workers]) => (
         <div key={category} className="category-section">
-          <h3 style={{ color: "gold", fontSize: "30px", textAlign: "center" }}>
-            {category}
-          </h3>
+          <h3 className="category-title">{category}</h3>
 
           <div className="guys-grid">
             {workers.map((worker) => (
@@ -27,7 +26,16 @@ const Contractors = () => {
                   <p><b>Skill:</b> {worker.skill}</p>
                   <p><b>Experience:</b> {worker.exp}</p>
                   <p className="guys-price"><b>Charges:</b> {worker.charges}</p>
-                  <p><b>Rating:</b> ⭐ {worker.rating} / 5</p>
+
+                  {/* Star Rating */}
+                  <p className="star-rating">
+                    <b>Rating:</b>{" "}
+                    {[...Array(Math.round(worker.rating || 0))].map((_, i) => (
+                      <FaStar key={i} style={{ color: "gold" }} />
+                    ))}
+                    {worker.rating ? ` ${worker.rating}/5` : " N/A"}
+                  </p>
+
                   <p><b>Reviews:</b> {worker.reviews?.length || 0}</p>
                 </div>
 

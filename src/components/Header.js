@@ -27,7 +27,9 @@ const Header = () => {
                     <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link><hr />
                     <Link to="/help" onClick={() => setMenuOpen(false)}>Help</Link><hr />
                     <Link to="/contractors" onClick={() => setMenuOpen(false)}>Contractors</Link><hr />
+                     <Link to="/reviews" onClick={() => setMenuOpen(false)}>Reviews</Link><hr />
                     <Link to="/userdashboard" onClick={() => setMenuOpen(false)}>UserDashboard</Link><hr />
+                   
                     
                     {userProfile?.role === 'admin' && (
                         <>
