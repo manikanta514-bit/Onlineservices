@@ -1,7 +1,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(135deg, #8ECAE6, #219EBC); 
+     background: linear-gradient(135deg, #8ECAE6, #219EBC);
   color: #023047; 
   font-family: 'Times New Roman', Times, serif;
 }
