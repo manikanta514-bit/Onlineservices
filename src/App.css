@@ -716,8 +716,6 @@ body {
   color: #023047; 
   box-shadow: 0 6px 12px rgba(255, 133, 0, 0.9);
 }
-/* ===== Admin Dashboard ===== */
-
 /* ===== Contractor Page ===== */
 .contractor-page-container {
   max-width: 900px;
@@ -1313,7 +1311,7 @@ body {
 /* === Sidebar === */
 .sidebar {
   position: fixed;
-  top: 70px; /* start 1 inch down */
+  top: 100px; /* start 1 inch down */
   left: 0;
   height: calc(100% - 70px);
   width: 220px;
@@ -1367,8 +1365,8 @@ body {
   font-size: 18px;
 }
 
-/* === Main Content === */
-.main-content {
+/* === Dashboard Content === */
+.dashboard-content {
   margin-left: 240px;
   padding: 20px 30px;
   flex: 1;
@@ -1376,12 +1374,12 @@ body {
   overflow-y: auto;
 }
 
-.sidebar.closed ~ .main-content {
+.sidebar.closed ~ .dashboard-content {
   margin-left: 80px;
 }
 
 /* Dashboard Heading */
-.main-content h1,
+.dashboard-content h1,
 .dashboard-main-heading {
   margin-bottom: 1.5rem;
   color: #FFB703;
@@ -1391,7 +1389,7 @@ body {
   text-shadow: 0 2px 10px rgba(255, 183, 3, 0.3);
 }
 
-.main-content h2,
+.dashboard-content h2,
 .dashboard-sub-heading {
   margin-top: 2rem;
   margin-bottom: 1rem;
@@ -1519,10 +1517,10 @@ button:hover,
   .sidebar.closed {
     width: 60px;
   }
-  .main-content {
+  .dashboard-content {
     margin-left: 190px;
   }
-  .sidebar.closed ~ .main-content {
+  .sidebar.closed ~ .dashboard-content {
     margin-left: 70px;
   }
   table {
@@ -1535,7 +1533,7 @@ button:hover,
     top: 60px;
     width: 150px;
   }
-  .main-content {
+  .dashboard-content {
     margin-left: 160px;
     padding: 10px;
   }

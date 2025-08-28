@@ -137,9 +137,10 @@ const AdminDashboard = () => {
         </ul>
       </div>
 
-      {/* Main Content */}
-      <div className={`main-content ${sidebarOpen ? "expanded" : "collapsed"}`}>
+      {/* Main Dashboard Content */}
+      <div className={`dashboard-content ${sidebarOpen ? "expanded" : "collapsed"}`}>
         <h1>Admin Dashboard</h1>
+
         {/* USERS VIEW */}
         {activeMenu === "users" && (
           <>
