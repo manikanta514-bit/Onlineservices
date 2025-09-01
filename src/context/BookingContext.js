@@ -94,11 +94,22 @@ export const BookingProvider = ({ children }) => {
       );
       unsubscribeBookings = onSnapshot(
         bookingsQuery,
-        (snapshot) => {
-          const userBookings = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
+        async (snapshot) => {
+          const userBookings = snapshot.docs.map((doc) => {
+            const data = doc.data();
+            // 🔹 Ensure beforeAfter field exists
+            if (!data.beforeAfter) data.beforeAfter = { before: [], after: [] };
+            return { id: doc.id, ...data };
+          });
+
+          // 🔹 Auto-update Firestore if missing beforeAfter
+          for (const b of userBookings) {
+            const bookingRef = doc(db, "users", currentUser.uid, "bookings", b.id);
+            const topLevelRef = doc(db, "bookings", b.id);
+            await updateDoc(bookingRef, { beforeAfter: b.beforeAfter }).catch(() => {});
+            await updateDoc(topLevelRef, { beforeAfter: b.beforeAfter }).catch(() => {});
+          }
+
           setBookings(userBookings);
           console.log("🔹 DEBUG: Bookings snapshot received", userBookings);
         },
@@ -127,11 +138,14 @@ export const BookingProvider = ({ children }) => {
           username: userProfile?.name || "Anonymous",
           status: "Pending",
           createdAt: serverTimestamp(),
+          beforeAfter: { before: [], after: [] }, // 🔹 initialize beforeAfter
         };
 
         // Save in top-level + user subcollection
         await setDoc(doc(db, "bookings", bookingId), newBooking);
         await setDoc(doc(db, "users", user.uid, "bookings", bookingId), newBooking);
+
+        setBookings((prev) => [...prev, { id: bookingId, ...newBooking }]);
 
         console.log("✅ Booking added to Firestore", newBooking);
       } catch (error) {
@@ -145,10 +159,13 @@ export const BookingProvider = ({ children }) => {
   const updateBookingStatus = useCallback(async (bookingId, userId, newStatus) => {
     try {
       const bookingRef = doc(db, "bookings", bookingId);
-      const userBookingRef = doc(db, "users", userId, "bookings", bookingId);
-
       await updateDoc(bookingRef, { status: newStatus });
-      await updateDoc(userBookingRef, { status: newStatus });
+
+      const userBookingRef = doc(db, "users", userId, "bookings", bookingId);
+      const userBookingSnap = await getDoc(userBookingRef);
+      if (userBookingSnap.exists()) {
+        await updateDoc(userBookingRef, { status: newStatus });
+      }
 
       setBookings((prev) =>
         prev.map((b) => (b.id === bookingId ? { ...b, status: newStatus } : b))
@@ -164,7 +181,13 @@ export const BookingProvider = ({ children }) => {
   const deleteBooking = useCallback(async (bookingId, userId) => {
     try {
       await deleteDoc(doc(db, "bookings", bookingId));
-      await deleteDoc(doc(db, "users", userId, "bookings", bookingId));
+
+      const userBookingRef = doc(db, "users", userId, "bookings", bookingId);
+      const userBookingSnap = await getDoc(userBookingRef);
+      if (userBookingSnap.exists()) {
+        await deleteDoc(userBookingRef);
+      }
+
       setBookings((prev) => prev.filter((b) => b.id !== bookingId));
       console.log(`✅ Booking ${bookingId} deleted`);
     } catch (error) {
@@ -176,14 +199,12 @@ export const BookingProvider = ({ children }) => {
   const clearBookings = useCallback(async () => {
     if (!user?.uid) return;
     try {
-      // Delete from user bookings
       const userBookingsRef = collection(db, "users", user.uid, "bookings");
       const userSnapshot = await getDocs(userBookingsRef);
       const batch = writeBatch(db);
       userSnapshot.forEach((docSnap) => batch.delete(docSnap.ref));
       await batch.commit();
 
-      // Delete from top-level bookings
       const topLevelBookingsQuery = query(
         collection(db, "bookings"),
         where("userId", "==", user.uid)

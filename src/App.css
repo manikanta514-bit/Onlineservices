@@ -9,6 +9,7 @@ body {
 .main-content, .page-content {
   padding: 20px;  /* example styling */
   background: linear-gradient(145deg, #219EBC, #8ECAE6);
+  font-family: 'Times New Roman', Times, serif;
 }
 
 /* ===== Header ===== */
@@ -617,6 +618,7 @@ body {
   font-family: 'Times New Roman', Times, serif;
 }
 .activity-card:hover {
+  background: #219EBC;
   transform: translateY(-8px);
   box-shadow: 0 6px 18px #023047; 
 }
@@ -1167,6 +1169,10 @@ body {
   .copyright {
     font-size: 12px;
   }
+   .activity-container {
+    margin-right: 15px;
+    max-width: 100%;
+  }
 }
 .mani-reviews-container {
   padding: 30px;
@@ -1468,6 +1474,8 @@ button:hover,
 .edit-btn:hover {
   background: #8ECAE6;
   color: #023047;
+    box-shadow: 0 8px 20px black;
+  transform: scale(1.02);
 }
 
 .delete-btn:hover {
@@ -1507,6 +1515,7 @@ button:hover,
   border-radius: 8px;
   border: 1px solid #219EBC;
   color: #023047;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 /* === Responsive === */
@@ -1543,4 +1552,14 @@ button:hover,
   th, td {
     padding: 6px;
   }
+}
+.input-admin{
+  width: 100%;
+  max-width: 350px;
+  padding: 8px 12px;
+  margin: 15px auto;
+  border-radius: 8px;
+  border: 1px solid #219EBC;
+  color: #023047;
+  font-family: 'Times New Roman', Times, serif;
 }

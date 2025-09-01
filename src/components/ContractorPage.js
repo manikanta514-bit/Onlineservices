@@ -1,88 +1,115 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { workersData } from "./workersData";
+import { db, storage } from "../context/firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { ref, getDownloadURL } from "firebase/storage";
 import { FaStar } from "react-icons/fa";
-import ReactCompareImage from "react-compare-image"; // 👈 added for before/after
+import ReactCompareImage from "react-compare-image";
 
 const ContractorPage = () => {
   const { id } = useParams();
-  const contractor = Object.values(workersData)
-    .flat()
-    .find((c) => c.id === id);
+  const [contractor, setContractor] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  if (!contractor) {
-    return <p className="text-center mt-10">Contractor not found</p>;
-  }
+  const isURL = (str) => str && (str.startsWith("http://") || str.startsWith("https://"));
+
+  useEffect(() => {
+    const fetchContractor = async () => {
+      const docRef = doc(db, "contractors", id);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+
+        if (data.beforeafter) {
+          const beforeVal = data.beforeafter.before;
+          const afterVal = data.beforeafter.after;
+
+          if (beforeVal) {
+            if (isURL(beforeVal)) {
+              data.beforeafter.beforeURL = beforeVal;
+            } else {
+              try {
+                data.beforeafter.beforeURL = await getDownloadURL(
+                  ref(storage, `contractors/${id}/before/${beforeVal}`)
+                );
+              } catch {
+                data.beforeafter.beforeURL = null;
+              }
+            }
+          }
+
+          if (afterVal) {
+            if (isURL(afterVal)) {
+              data.beforeafter.afterURL = afterVal;
+            } else {
+              try {
+                data.beforeafter.afterURL = await getDownloadURL(
+                  ref(storage, `contractors/${id}/after/${afterVal}`)
+                );
+              } catch {
+                data.beforeafter.afterURL = null;
+              }
+            }
+          }
+        }
+
+        setContractor(data);
+      } else {
+        setContractor(null);
+      }
+      setLoading(false);
+    };
+
+    fetchContractor();
+  }, [id]);
+
+  if (loading) return <p>Loading contractor details...</p>;
+  if (!contractor) return <p className="text-center mt-10">Contractor not found</p>;
 
   return (
     <div className="contractor-page-container">
       <h1>{contractor.name}</h1>
 
-      {/* ✅ Contractor Details Section */}
+      {/* Contractor Details */}
       <div className="details-section">
-        <img
-          src={contractor.img}
-          alt={contractor.name}
-          className="worker-img"
-        />
-
+        <img src={contractor.img} alt={contractor.name} className="worker-img" />
         <div className="details-text">
-          <p>
-            <b>Skill:</b> {contractor.skill}
+          <p><b>Skill:</b> {contractor.skill}</p>
+          <p><b>Experience:</b> {contractor.exp}</p>
+          <p><b>Charges:</b> {contractor.charges}</p>
+          <p><b>Rating:</b>{" "}
+            {[...Array(Math.round(contractor.rating || 0))].map((_, i) => (
+              <FaStar key={i} style={{ color: "gold" }} />
+            ))} {contractor.rating || "N/A"}/5
           </p>
-          <p>
-            <b>Experience:</b> {contractor.exp}
-          </p>
-          <p>
-            <b>Charges:</b> {contractor.charges}
-          </p>
-          <p>
-            <b>Rating:</b>{" "}
-            <span style={{ color: "gold" }}>
-              <FaStar /> {contractor.rating}
-            </span>
-          </p>
+          <p><b>Category:</b> {contractor.category}</p>
         </div>
       </div>
 
-      {/* ✅ Before/After Section */}
-      {contractor.beforeafter &&
-      contractor.beforeafter.before &&
-      contractor.beforeafter.after ? (
+      {/* Before/After Images */}
+      {contractor.beforeafter?.beforeURL && contractor.beforeafter?.afterURL && (
         <div className="before-after-section" style={{ marginTop: "30px" }}>
-          <h2
-            style={{
-              color: "gold",
-              textAlign: "center",
-              marginBottom: "15px",
-            }}
-          >
-            Before & After Work
-          </h2>
+          <h2 style={{ color: "gold", textAlign: "center", marginBottom: "15px" }}>Before & After Work</h2>
           <ReactCompareImage
-            leftImage={contractor.beforeafter.before}
-            rightImage={contractor.beforeafter.after}
+            leftImage={contractor.beforeafter.beforeURL}
+            rightImage={contractor.beforeafter.afterURL}
             sliderLineColor="gold"
           />
         </div>
-      ) : null}
+      )}
 
-      {/* ✅ Reviews Section */}
-      <div className="reviews-section">
+      {/* Reviews */}
+      <div className="reviews-section" style={{ marginTop: "30px" }}>
         <h2>Reviews</h2>
-        {contractor.reviews && contractor.reviews.length > 0 ? (
+        {contractor.reviews?.length > 0 ? (
           <ul>
             {contractor.reviews.map((review, i) => (
               <li key={i}>
                 <strong>{review.user}</strong>{" "}
-                {review.stars ? (
-                  <span style={{ color: "gold" }}>
-                    <FaStar /> {review.stars}
-                  </span>
-                ) : (
-                  <FaStar style={{ color: "lightgray" }} />
-                )}
-                : {review.comment}
+                {[...Array(review.stars || 0)].map((_, i) => (
+                  <FaStar key={i} style={{ color: "gold" }} />
+                ))}
+                {review.stars ? ` ${review.stars}/5` : ""}: {review.comment}
               </li>
             ))}
           </ul>
@@ -91,17 +118,8 @@ const ContractorPage = () => {
         )}
       </div>
 
-      {/* ✅ Back to Contractors */}
-      <div
-        style={{
-          textAlign: "center",
-          marginTop: "30px",
-          textDecoration: "none",
-        }}
-      >
-        <Link to="/contractors" className="guys-btn">
-          Back to Contractors
-        </Link>
+      <div style={{ textAlign: "center", marginTop: "30px" }}>
+        <Link to="/contractors" className="guys-btn">Back to Contractors</Link>
       </div>
     </div>
   );

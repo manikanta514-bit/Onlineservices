@@ -9,7 +9,6 @@ const Help = () => {
         padding: "40px",
         maxWidth: "900px",
         margin: "auto",
-        fontFamily: "Arial, sans-serif",
         lineHeight: "1.8",
         color: "white"
       }}
