@@ -787,9 +787,10 @@ body {
   max-width: 700px;
   margin: 30px auto;
   padding: 20px;
-  background: #fff;
+  background: linear-gradient(135deg, #023047, #219EBC);
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  color: #ffffff;
 }
 .center {
   display: flex;
@@ -808,14 +809,14 @@ body {
   margin-top: 10px;
 }
 .profile-email {
-  color: #023047;
+  color: #ffffff;
   font-size: 1rem;
   word-break: break-word; 
 }
 .profile-role {
   margin-top: 6px;
   font-size: 1rem;
-  color: #023047;
+  color: #ffffff;
 }
 .profile-orders {
   margin-top: 20px;
@@ -831,7 +832,7 @@ body {
   margin: 0;
 }
 .order-card {
-  background: #f9f9f9;
+  background: linear-gradient(135deg, #023047, #219EBC);
   border: 1px solid #023047;
   border-radius: 10px;
   padding: 15px;
