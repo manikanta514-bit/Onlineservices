@@ -6,12 +6,12 @@ body {
   font-family: 'Times New Roman', Times, serif;
 }
 
-.main-content, .page-content {
+.main-content {
   padding: 20px;  /* example styling */
   background: linear-gradient(145deg, #219EBC, #8ECAE6);
   font-family: 'Times New Roman', Times, serif;
 }
-
+ 
 /* ===== Header ===== */
 .main-header {
   background: linear-gradient(135deg, #023047, #219EBC); /* Prussian blue to Blue Green gradient */
@@ -589,7 +589,7 @@ body {
 .activity-container {
   padding: 50px 20px;
   min-height: 100vh;
-  background: linear-gradient(135deg, #219EBC, #8ECAE6); /* Blue Green to Sky blue gradient */
+  /* Blue Green to Sky blue gradient */
   color: #023047; 
   text-align: center;
   max-width: 1200px;
@@ -1318,9 +1318,9 @@ body {
 /* === Sidebar === */
 .sidebar {
   position: fixed;
-  top: 102px; /* start 1 inch down */
+  top: 81px; /* start 1 inch down */
   left: 0;
-  height: calc(100% - 70px);
+  height: calc(100% - 81px);
   width: 220px;
   background: #023047;
   color: white;
@@ -1522,7 +1522,8 @@ button:hover,
 /* === Responsive === */
 @media (max-width: 768px) {
   .sidebar {
-    width: 180px;
+    width: 150px;
+    top: 102px;
   }
   .sidebar.closed {
     width: 60px;
@@ -1563,4 +1564,10 @@ button:hover,
   border: 1px solid #219EBC;
   color: #023047;
   font-family: 'Times New Roman', Times, serif;
+}
+@media (max-width: 1024px) {
+    .sidebar {
+    top: 102px;
+    width: 150px;
+  }
 }
